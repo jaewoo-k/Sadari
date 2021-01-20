@@ -52,6 +52,7 @@
        /* 신고 아이콘 */
        #icon1 {
            width: 50px;
+          
            position: relative;
            display: block;
            
