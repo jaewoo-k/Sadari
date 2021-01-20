@@ -9,5 +9,6 @@
 <body>
 	<h1>hi!</h1>
 	<h1>gitignore test</h1>
+	<h1>gitignore classPath test</h1>
 </body>
 </html>
