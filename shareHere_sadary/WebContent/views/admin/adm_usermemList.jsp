@@ -196,7 +196,7 @@ body{
             		location.href='<%=request.getContextPath()%>/hostmem/list';
             	});
             	
-            	const hostBtn = document.getElementById('outMemBtn');
+            	const outBtn = document.getElementById('outMemBtn');
             	outMemBtn.addEventListener('click', function(){
             		location.href='<%=request.getContextPath()%>/outmem/list';
             	});

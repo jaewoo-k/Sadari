@@ -13,19 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import administrator.model.service.ADM_MemberService;
 import administrator.model.vo.Hostmember;
 import member.model.service.MemberService;
-import administrator.model.vo.Usermember;
 
 /**
- * Servlet implementation class usermemListServlet
+ * Servlet implementation class hostmemListServlet
  */
-@WebServlet("/usermem/list")
-public class usermemListServlet extends HttpServlet {
+@WebServlet("/hostmem/list")
+public class HostmemListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public usermemListServlet() {
+    public HostmemListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,14 +33,14 @@ public class usermemListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println("서블릿 연결.");
-		
-		ArrayList<Usermember> list = new ADM_MemberService().selectUserList();
+		//System.out.println("서블릿 파일 이동.");
+		ArrayList<Hostmember> list = new ADM_MemberService().selectHostList();
 		//System.out.println("list : " + list);
 		
 		request.setAttribute("list", list);
 		
-		RequestDispatcher view = request.getRequestDispatcher("/views/admin/adm_usermemList.jsp");
+		System.out.println("출력 화면으로 이동!");
+		RequestDispatcher view = request.getRequestDispatcher("/views/admin/adm_hostmemList.jsp");
 		view.forward(request, response);
 	}
 

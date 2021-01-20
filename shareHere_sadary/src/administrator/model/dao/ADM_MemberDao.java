@@ -12,7 +12,6 @@ import java.util.Properties;
 import static common.JDBCTemplate.*;
 
 import administrator.model.vo.Hostmember;
-import administrator.model.vo.Outmember;
 import administrator.model.vo.Usermember;
 
 public class ADM_MemberDao {
@@ -89,8 +88,10 @@ public class ADM_MemberDao {
 	}
 
 	// 3. 탈퇴 회원 리스트 출력용 메소드
-	/*public ArrayList<Object> selectOutList(Connection conn) {
+	public ArrayList<Object> selectOutList(Connection conn) {
 		ArrayList<Object> list = new ArrayList<>();
+		//ArrayList<Hostmember> hlist = new ArrayList<>();
+		//ArrayList<Usermember> ulist = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectOutList");
@@ -100,19 +101,21 @@ public class ADM_MemberDao {
 			
 			while(rset.next()) {
 				
-				if(rset.getString("US_ACT") == 'Y' || rset.getNString("US_ACT") == 'B' && rset.getNString("HST_ACT") == 'N') {
+				if(rset.getString("US_ACT") == "Y" || rset.getNString("US_ACT") == "B" && rset.getNString("HST_ACT") == "N") {
 					list.add(new Hostmember(rset.getString("HST_NO"),
-						 	rset.getString("HST_NAME"),
-						 	rset.getString("HST_ID"),
-						 	rset.getString("HST_BSNO"),
-							rset.getString("HST_BSNAME")));
+						 					rset.getString("HST_ID"),
+						 					rset.getString("HST_NAME"),
+						 					rset.getString("HST_EMAIL"),
+						 					rset.getString("HST_ACT"),
+						 					rset.getDate("HST_STOP")));
 					
 				} else {
 					list.add(new Usermember(rset.getString("US_NO"),
-						 	rset.getString("US_NAME"),
-						 	rset.getString("US_ID"),
-						 	rset.getString("US_BSNO"),
-							rset.getString("US_BSNAME")));
+						 					rset.getString("US_ID"),
+						 					rset.getString("US_NAME"),
+						 					rset.getString("US_EMAIL"),
+						 					rset.getString("US_ACT"),
+						 					rset.getDate("US_STOP")));
 				}
 				
 				System.out.println("list 담기 성공");
@@ -124,7 +127,7 @@ public class ADM_MemberDao {
 			close(pstmt);
 		}
 		
-		return null;
-	}*/
+		return list;
+	}
 
 }

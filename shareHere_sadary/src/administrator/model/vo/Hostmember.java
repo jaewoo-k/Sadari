@@ -52,11 +52,6 @@ public class Hostmember {
 	}
 
 
-	
-
-
-
-
 	/* 탈퇴회원용 */
 	public Hostmember(String hst_no, String hst_id, String hst_name, String hst_email, String hst_act, Date hst_stop) {
 		super();
