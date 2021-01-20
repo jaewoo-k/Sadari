@@ -9,6 +9,7 @@
 <body>
 	<%@include file="/views/House/host/hst_info_room.jsp" %>
 	<div class="house room">
+	
 		<h2>방 정보</h2>
 	    <hr>
 	    <b id="sub">방은 최대 4개 입력할 수 있습니다. <br>
