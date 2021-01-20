@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	User u = (User)session.getAttribute("loginUser");
+	Host h = (Host)session.getAttribute("loginHost");
+	
+	String gender = (u.getUserGender().charAt(0) == 'M') ? "남자" : "여자";
+	
+// 	String email = (u.getUserEmail() != null) ? u.getUserEmail() : "";
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,7 +108,7 @@
         span{text-align: center;}
         #wrap h2{margin-bottom : 30px;}
  		h1, h2, h4 {font-family: 'Nanum Gothic', sans-serif;}
- 		/* 직접 스타일줘야할듯 안먹음
+ 		/* 직접 스타일줘야할듯 부트스트랩이랑 충돌때매 안먹음
  		h2{font-size:24px;} */
  		.join_title{font-size:16px;} 
 
@@ -133,24 +142,24 @@
 	        <h1>회원 정보 수정</h1>
 	        <div id="wrap"> 
 	        	<!-- 코드추가 -->
-	            <h2> 님의 정보입니다.</h2>
+	            <h2><%= u.getUserName() %> 님의 정보입니다.</h2>
 	            <form id="usr_updateForm">
 	                <div id="Lwrap">
-	                    <div><h4 class="join_title">이름 : </h4><input type="text" maxlength="5" name=us_name id="name"></div>
+	                    <div><h4 class="join_title">이름 : </h4><input type="text" maxlength="5" name=us_name id="name" value="<%= u.getUserName() %>"></div>
 	                    <span id="nameresult">&nbsp;</span>
-	                    <div><h4 class='join_title'>성별 : </h4><input type="text" value='남자' id="gender" readonly><!--나중에 value 지워주기--></div>
+	                    <div><h4 class='join_title'>성별 : </h4><input type="text" value="<%= gender %>" id="gender" readonly></div>
 	                    <span>&nbsp;</span>
-	                    <div><h4 class='join_title'>비밀번호 : </h4><input type="password" id="pwd"></div>
+	                    <div><h4 class='join_title'>비밀번호 : </h4><input type="password" id="pwd" value="<%= u.getUserPwd()%>"></div>
 	                    <span id="pwdresult">&nbsp;</span>
-	                    <div><h4 class='join_title'>비밀번호 확인 : </h4><input type="password" id="pwd2"></div>
+	                    <div><h4 class='join_title'>비밀번호 확인 : </h4><input type="password" id="pwd2" value="<%= u.getUserPwd()%>"></div>
 	                    <span id="pwd2result">&nbsp;</span>
 	                </div>
 	                <div id="Rwrap">
-	                    <div>&nbsp;&nbsp;<h4 class='join_title'>생년월일 : </h4><input type="text" id="birth" readonly></div>
+	                    <div>&nbsp;&nbsp;<h4 class='join_title'>생년월일 : </h4><input type="text" id="birth" readonly value="<%= u.getUserBirth()%>"></div>
 	                    <span id="birthresult">&nbsp;</span>
-	                    <div>&nbsp;&nbsp;<h4 class='join_title'>이메일 : </h4><input type="email" id="email"></div>
+	                    <div>&nbsp;&nbsp;<h4 class='join_title'>이메일 : </h4><input type="email" id="email" value="<%= u.getUserEmail()%>"></div>
 	                    <span id="emailresult">&nbsp;</span>
-	                    <div>&nbsp;&nbsp;<h4 class='join_title'>휴대전화 : </h4><input type="tel" id="phone"></div>
+	                    <div>&nbsp;&nbsp;<h4 class='join_title'>휴대전화 : </h4><input type="tel" id="phone" value="<%= u.getUserPhone() %>"></div>
 	                    <span id="phoneresult">&nbsp;</span>
 	                </div>
 	                    
@@ -159,91 +168,90 @@
 	                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                <button id="back">뒤로가기</button>
 	                <button id="modify">수정하기</button>
-	
-	                
-	            </form>
+					<script>
+                        $("#name").change(function () {
+                            var regname = /^[가-힣]{2,5}$/;     //2~5글자의 한글 이름
+                            if (regname.test($(this).val())) {
+                                $("#nameresult").html("정상 입력.").css("color", "green");
+                            } else {
+                                $("#nameresult").html("올바른 이름이 아닙니다.").css("color", "red");
+                            }
+                        });
+                        $("#pwd").change(function () {   //pwd
+                            var regpwd = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,16}/;       // 영어대소문자,숫자,특수문자를 포함한 8자리~16자리
+                            if (!regpwd.test($(this).val())) {
+                                $("#pwdresult").html("영어대소문자,숫자,특수문자를 포함한 8자리~16자로 작성해주세요.").css("color", "red");
+                            } else {
+                                $("#pwdresult").html("사용 가능한 비밀번호 형식입니다.").css("color", "green");
+                            }
+                            
+                        });
+
+                        $("#pwd2").change(function () {
+                            if ($("#pwd2").val() != $("#pwd").val()) {
+                                $("#pwd2result").html("비밀번호가 일치하지 않습니다.").css("color", "red");
+                            } else {
+                                $("#pwd2result").html("비밀번호가 일치합니다.").css("color", "green");
+                            }
+                        });
+                        
+
+                        $("#birth").change(function () {
+                            var date = new Date;
+                            var inputbirth = new Date($("#birth").val());
+
+                            if (inputbirth > date) {
+                                $("#birthresult").html("생년월일을 정확히 입력하세요.").css("color", "red");
+                            } else {
+                                $("#birthresult").html("정상 입력").css("color", "green");
+                            }
+                        });
+
+                        //  성별 Null 값 안되게 다뤄주기--> 선택 안하고 submit 못하게..
+                        
+                        $("#email").change(function () {
+                                var emailVal = $("#email").val();
+                                var regemail = /^[a-z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+                                if (emailVal.match(regemail) != null) {
+                                    $("#emailresult").html("정상입력").css("color", "green");
+                                }
+                                else {
+                                    $("#emailresult").html("올바른 이메일을 입력해주세요.").css("color", "red");
+                                }
+                            });
+                        $("#phone").change(function(){
+                            var phoneVal = $("#phone").val();
+                            var regphone = /^010\D?\d{4}\D?\d{4}$|^01[16789]\D?\d{3}\D?\d{4}$/;
+
+                            if(regphone.test(phoneVal)){
+                                $("#phoneresult").html("정상입력").css("color","green");
+                            }else{
+                                $("#phoneresult").html("올바른 휴대전화 번호를 입력해주세요.").css("color","red");
+                            }
+                        });
+                        
+                        // 보완
+                        $("#register_btn").mouseenter(function () {
+                            if ($("#pwd2").val() != $("#pwd").val()) {
+                                $("#pwd2result").html("비밀번호가 일치하지 않습니다.").css("color", "red");
+                            } else {
+                                $("#pwd2result").html("비밀번호가 일치합니다.").css("color", "green");
+                            }
+//                             if(!($("#m").checked && $("#f").checked)){
+//                             	 $("#gerderresult").html("성별을 선택해주세요.").css("color", "red");
+//                             }else{
+// //테스트해보기
+//                             	$("#gerderresult").html("성별선택 완료.").css("color", "green");
+//                             }
+                        });
+
+                    });
+                </script>
+
+
+				</form>
 	
 	            <!-- 유효성 피드백 -->
-	            <script>
-	                $(function () {
-	                    $("#id").change(function () {   // id
-	                        // 유효성 피드백
-	                        var regid = /^[a-z][a-z0-9]{3,16}$/;       // 영어로시작, 영,숫 4~16글자
-	                        var firsta = /^[a-z]/;  // 영어소문자로 시작
-	                        // 아이디가 정규식을 만족하지 못한경우
-	                        if (!firsta.test($(this).val())) {
-	                            $("#idresult").html("영어 소문자로 시작해 주세요.").css("color", "red");
-	                        } else if (!regid.test($(this).val())) {
-	                            $("#idresult").html("영어소문자,숫자로 구성된 4~16글자로 작성해주세요.").css("color", "red");
-	                        } else {
-	                            $("#idresult").html("정상 입력").css("color", "green");
-	                        }
-	                    });
-	
-	                    $("#pwd").change(function () {   //pwd
-	                        var regpwd = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{7,15}/;       // 영어대소문자,숫자,특수문자를 포함한 8자리~16자리
-	                        if (!regpwd.test($(this).val())) {
-	                            $("#pwdresult").html("영어대소문자,숫자,특수문자를 포함한 8자리~16자로 작성하세요.").css("color", "red");
-	                        } else {
-	                            $("#pwdresult").html("사용 가능한 비밀번호 형식입니다..").css("color", "green");
-	                        }
-	                    });
-	
-	                    $("#pwd2").change(function () {
-	                        if ($("#pwd2").val() != $("#pwd").val()) {
-	                            $("#pwd2result").html("비밀번호가 일치하지 않습니다.").css("color", "red");
-	                        } else {
-	                            $("#pwd2result").html("비밀번호가 일치합니다.").css("color", "green");
-	                        }
-	                    });
-	                    // 테스트완료
-	                    $("#name").change(function () {
-	                        var regname = /^[가-힣]{1,4}$/;     //2~5글자의 한글 이름
-	                        if (regname.test($(this).val())) {
-	                            $("#nameresult").html("정상 입력.").css("color", "green");
-	                        } else {
-	                            $("#nameresult").html("올바른 이름이 아닙니다.").css("color", "red");
-	                        }
-	                    });
-	
-	                    $("#birth").change(function () {
-	                        var date = new Date;
-	                        var inputbirth = new Date($("#birth").val());
-	
-	                        if (inputbirth > date) {
-	                            $("#birthresult").html("생년월일을 정확히 입력하세요.").css("color", "red");
-	                        } else {
-	                            $("#birthresult").html("정상 입력").css("color", "green");
-	                        }
-	                    });
-	
-	                    //  성별 백엔드에서 다뤄주기
-	                    // 선택 안하고 submit 못하게..
-	                    
-	                    $("#email").change(function () {
-	                            var emailVal = $("#email").val();
-	                            var regemail = /^[a-z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	                            if (emailVal.match(regemail) != null) {
-	                                $("#emailresult").html("정상입력").css("color", "green");
-	                            }
-	                            else {
-	                                $("#emailresult").html("올바른 이메일을 입력해주세요.").css("color", "red");
-	                            }
-	                        });
-	                        $("#phone").change(function(){
-	                            var phoneVal = $("#phone").val();
-	                            var regphone = /^010\D?\d{4}\D?\d{4}$|^01[16789]\D?\d{3}\D?\d{4}$/;
-	
-	                            if(regphone.test(phoneVal)){
-	                                $("#phoneresult").html("정상입력").css("color","green");
-	                            }else{
-	                                $("#phoneresult").html("올바른 휴대전화 번호를 입력해주세요.").css("color","red");
-	                            }
-	                        });
-	
-	
-	                });
-	            </script>
 	            
 	            
 	        </div>

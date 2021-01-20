@@ -14,7 +14,7 @@
         ol,li,ul{list-style-type: none;}
         a{text-decoration: none;}
 
-        /* 전체 페이지 설정 수정*/
+        /* 전체 페이지 설정 */
         .wrap{
             width: 100%;
             height: 1119px;
@@ -112,7 +112,7 @@
                     <span id="nameIncor"></span>
                     
                     <lable class="index" onchange="pwdchange();">휴대전화</lable>
-                    <input type="text" id="phone" class="findinput"><span id="phoneresult"></span><br>
+                    <input type="text" id="userphone" class="findinput"><br>
                     <div>
                         <span id="phoneIncor"></span>
                     </div>
@@ -141,17 +141,6 @@
                                 }
                                 else {
                                     $("#emailIncor").html("올바른 이메일을 입력해주세요.").css("color", "red");
-                                }
-                            });
-                            // 휴대전화번호 유효성 검사
-                            $("#phone").change(function(){
-                                var phoneVal = $("#phone").val();
-                                var regphone = /^010\D?\d{4}\D?\d{4}$|^01[16789]\D?\d{3}\D?\d{4}$/;
-
-                                if(regphone.test(phoneVal)){
-                                    $("#phoneresult").html("정상입력").css("color","green");
-                                }else{
-                                    $("#phoneresult").html("올바른 휴대전화 번호를 입력해주세요.").css("color","red");
                                 }
                             });
                         });
