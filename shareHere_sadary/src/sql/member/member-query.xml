@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="loginMember">
+		 SELECT
+			  US_NO
+			, US_ID
+			, US_PWD
+			, US_NAME
+			, US_BIRTH
+			, US_GENDER
+			, US_EMAIL
+			, US_PHONE
+			, US_ACT
+			, US_STOP
+		 FROM
+		 	  USER_DB
+		WHERE
+			  US_ID = ?
+		  AND US_PWD = ?
+		  AND US_ACT = 'Y' 
+	</entry>
+	<entry key="loginHMember">
+		SELECT
+			  HST_NO
+			, HST_ID
+			, HST_PWD
+			, HST_NAME
+			, HST_BIRTH
+			, HST_GENDER
+			, HST_EMAIL
+			, HST_PHONE
+			, HST_BSNO
+			, HST_BSNAME
+			, HST_ACT
+			, HST_STOP
+		 FROM
+		 	  HST_DB
+		WHERE
+			  HST_ID = ?
+		  AND HST_PWD = ?
+		  AND HST_ACT = 'Y' 
+	</entry>
+	
+	<entry key="insertMember">
+		INSERT
+		INTO USER_DB
+		(
+			  US_NO
+		    , US_ID
+		    , US_PWD
+		    , US_NAME
+		    , US_BIRTH
+		    , US_GENDER
+  		    , US_EMAIL
+  		    , US_PHONE
+	  	    , US_ACT
+		)
+		VALUES
+		(
+			'u' || USER_NO.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , 'Y'
+		)
+	</entry>
+	<entry key="insertHMember">
+		INSERT
+		INTO HST_DB
+		(
+			  HST_NO
+		    , HST_ID
+		    , HST_PWD
+		    , HST_NAME
+		    , HST_BIRTH
+		    , HST_GENDER
+  		    , HST_EMAIL
+  		    , HST_PHONE
+  		    , HST_BSNO
+  		    , HST_BSNAME
+	  	    , HST_ACT
+		)
+		VALUES
+		(
+			'h' || HOST_NO.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , 'Y'
+		)
+	</entry>
+</properties>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

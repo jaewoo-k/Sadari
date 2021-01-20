@@ -10,10 +10,15 @@
 <!-- navi css 경로 -->
 	<link href ="${pageContext.request.contextPath}/views/common/nav_foot.css" rel="stylesheet" type="text/css">
     <style>
-        *{box-sizing: border-box;}
+        *{box-sizing: border-box;font: 1rem "나눔 고딕",sans-serif}
         ol,li,ul{list-style-type: none;}
-        a{font: 1rem "나눔 고딕", sans-serif;text-decoration: none;}
-
+        a{text-decoration: none;}
+		.membertype{display: flex; justify-content: center; align-items:center;}
+		.block{display: block;}
+		
+		#utype,#htype{width: auto; height: auto; background-color: none;}                         /* 회원분류 크기 */
+   		#utype + label{margin-right: 40px;}
+		
         /* 전체 페이지 설정 */
         .wrap{
             width: 100%;
@@ -26,7 +31,6 @@
             height: 118px;
             text-align: center;
         }
-
 
         /* 섹션 */
         section{
@@ -117,7 +121,7 @@
             height : 238px;
             border: 1px black solid;
         }
-
+		.noline{text-decoration:none;}
 
         
     </style>
@@ -128,84 +132,96 @@
         <header>
             <div class="header">
                 <!-- 로고 -->
-                <h1><a href="#"><img src="image/nlogo.png" class="header_logo" alt="Sharehere_Logo"></a></h1>
+                <h1><a href="<%= request.getContextPath() %>"><img src="image/nlogo.png" class="header_logo" alt="Sharehere_Logo"></a></h1>
             </div>
         </header>
 
-        <section>
+        <section style="text-decoration:none;">
             <div class="section">
                 <h2>LogIn</h2>
-        
-                <!-- <form method="GET" onsubmit="return validate();"> -->
-                <form method="GET">
+
+<!-- 로그인 선택을 어떻게해야할지         -->
+                <form method="post" id="loginForm" action="<%= request.getContextPath() %>/member/login"
+                onsubmit="return loginValidate();">
+                	
                     <label class="index">아이디</label>
                     <!-- required 나중에 지워주기(자바스크립트 추가 시) -->
-                    <input type="text" id="loginid" class="loginput">
+                    <input type="text" name="userId" id="userId" class="loginput">
                     <span id="logininputresult"></span>
                     
+                    <lable class="index">비밀번호</lable>
+                    <input type="password" name="userPwd" id="userPwd" class="loginput"><br>
                     
-                    <lable class="index" onchange="pwdchange();">비밀번호</lable>
-                    <input type="password" id="userPwd" class="loginput"><br>
-                    <div>
-                        <span id="pwdIncor"></span>
-                        <script>
-                            var input = document.getElementById("pwdIncor");
-                            function pwdchange(){
-                                // div 보이게
-                                if(validate() == true){
+                    <br>
+<!-- 					<label class="block">회원유형</label> -->
+<!-- 					<label class="block" style="text-align:center">회원유형</label> -->
+<!-- id for 일치/// -->
+					<div class="membertype">
+	                    <input type="radio" name="mtype" id="utype" value="u">
+	                    <label for="utype">일반회원</label> 
+	                    <input type="radio" name="mtype" id="htype" value="h">
+	                    <label for="htype">호스트</label>
+					</div>
 
-                                }
-                            }
-                            function validate(){
-                                // 유효성검사
-                                
-                            }
-                        </script>
-                    </div>
-                    <br><br>
+
+
+
+					<br>
         
                     <input class="login" type="submit" value="로그인">
                     <script>
-                         $(function () {
-                            // 아이디, 패스워드 중 입력 되지 않은 값이 있을 시 alert 후 focus 처리 -> submit X
-                            if ($("#loginid").val().trim().length == 0) {
-                                //.trim--> 띄어쓰기 없애기
-                                $("#loginidresult").html("아이디를입력하세요").css("color", "red");
-                                $("#loginid").focus();
-                                return false;	//submit 안하게 하기 위해
-                            }
-                            if ($("#loginpwd").val().trim().length == 0) {
-                                //.trim--> 띄어쓰기 없애기
-                                $("#loginpwdresult").html("아이디를입력하세요").css("color", "red");
-                                $("#loginpwdresult").focus();
-                                return false;	//submit 안하게 하기 위해
-                            }
-                            return true;
-                        });
+                    function validate(){
+    					// 아이디, 패스워드 중 입력 되지 않은 값이 있을 시 alert 후 focus 처리 -> submit X
+    					if($("#userId").val().trim().length == 0){
+    						alert('아이디를 입력하세요');
+    						$("#userId").focus();
+    						return false;	
+    					}
+    					if($("#userPwd").val().trim().length == 0){
+    						alert('비밀번호를 입력하세요');
+    						$("#userPwd").focus();
+    						return false;
+    					}
+    					return true;
+    				}
+                    
                     </script>
-                </form>
+                 </form>
+                
+<!-- 링크 연결 밑 jsp 만들기 -->
                 <div class="section_ul">
                     <div class="section_ul_1">
                         <input type="checkbox" id="idremem"><label for="idremem">아이디 저장</label>
                     </div>
                     <div class="section_ul_2">
-                        <a href="#">아이디찾기</a>&nbsp;/&nbsp;
-                        <a href="#">비밀번호 찾기</a>&nbsp;/&nbsp;
-                        <a href="#">회원가입</a>
+                        <a href="#" class="noline">아이디찾기</a>&nbsp;/&nbsp;
+                        <a href="#" class="noline">비밀번호 찾기</a>&nbsp;/&nbsp;
+                        <a href="#" class="noline" id="registerA">회원가입</a>
                     </div>
                 </div>
                 <ul class="easylogin">
-                    <li><img src="image/login-google.png" alt="google"><a href="#">Google 로그인</a></li>
-                    <li><img src="image/login-naver.png" alt="Naver"><a href="#">Naver 로그인</a></li>
-                    <li><img src="image/login-kakao.png" alt="Kakao"><a href="#">Kakao 로그인</a></li>
+                    <li><img src="image/login-google.png" alt="google"><a href="#" class="noline">Google 로그인</a></li>
+                    <li><img src="image/login-naver.png" alt="Naver"><a href="#" class="noline">Naver 로그인</a></li>
+                    <li><img src="image/login-kakao.png" alt="Kakao"><a href="#" class="noline">Kakao 로그인</a></li>
                 </ul>
             </div>
 
         </section>
 
 
-        <!--  페이지를 이동해도 footer는 계속 상단에 노출되게끔 -->
+        <!-- footer -->
    <%@include file="/views/common/footer.jsp" %>
     </div>
+    <script>
+			// 회원가입버튼 분류하기
+				const reBtn = document.getElementById('registerA');
+				registerA.addEventListener('click', function(){
+					if(confirm('일반 회원이십니까?')){
+						location.href='<%= request.getContextPath() %>/views/Login/register_user.jsp';
+					}else{
+						location.href='<%= request.getContextPath() %>/views/Login/register_hst.jsp';
+					}
+				});
+			</script>
 </body>
 </html>
