@@ -3,6 +3,7 @@ package administrator.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,6 +32,11 @@ public class OutmemberListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Object> list = new ADM_MemberService().selectOutList();
+	
+		request.setAttribute("list", list);
+		
+		RequestDispatcher view = request.getRequestDispatcher("/views/admin/adm_usermemList.jsp");
+		view.forward(request, response);
 	}
 
 	/**
