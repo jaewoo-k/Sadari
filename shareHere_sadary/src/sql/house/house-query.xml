@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="insertHouse">
+	INSERT 
+		INTO SH_INFO
+		(
+			SH_NO
+		  , SH_TITLE
+		  , SH_TYPE
+		  , SH_STR
+		  , SH_AREA
+		  , SH_FLOOR
+		  , SH_INTRO
+		  , SH_PERS
+		  , SH_COMS
+		  , SH_SS
+		  , SH_ADDRESS
+		  , SH_LA
+		  , SH_LO
+		  , SH_BANK
+		  , SH_MART
+		  , SH_PARMACY
+		  , SH_SUBWAY
+		  , SH_CAFE
+		  , SH_STORE
+		  , SH_STATUS
+          , SH_DATE
+          , PAY_NO
+		)
+		VALUES
+		(
+			'SH' || SH.nextval
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+          , ?
+		  , ?
+          , ?
+		  , ?
+		  , ?
+		  , DEFAULT
+          , SYSDATE
+          , 'PY1'
+		)
+	</entry>
+
+</properties>
