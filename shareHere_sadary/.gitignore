@@ -1,1 +1,11 @@
 /build/
+/build/
+
+### Eclipse ###
+bin/
+.settings/
+
+# Package Files #
+*.jar
+
+.classpath
