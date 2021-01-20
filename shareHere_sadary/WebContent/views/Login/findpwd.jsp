@@ -14,7 +14,7 @@
         ol,li,ul{list-style-type: none;}
         a{text-decoration: none;}
 
-        /* 전체 페이지 설정 */
+        /* 전체 페이지 설정 수정*/
         .wrap{
             width: 100%;
             height: 1119px;
