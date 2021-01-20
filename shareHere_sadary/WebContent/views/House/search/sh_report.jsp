@@ -9,7 +9,7 @@
 <link href="<%= request.getContextPath() %>/views/common/nav_foot.css"
 	rel="stylesheet" type="text/css">
 <style>
- /* 첫번째 섹션(하우스이미지, 이름, 정보 테이블 표시) */
+ /* 첫번째 섹션(하우스이미지, 이름, 정보 테이블 표시) */ 
        .section1{
            border : 1px solid black;
            width : 100%;
