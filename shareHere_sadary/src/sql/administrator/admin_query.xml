@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectUserList">
+	 	SELECT
+	 		US_NO
+	 	  , US_NAME
+	 	  , US_ID
+	 	  , US_BIRTH
+	 	  , US_EMAIL
+	 	 FROM
+	 	 	USER_DB
+	 	 WHERE
+	 	 	US_ACT = 'Y'
+	 	 ORDER BY
+	 	 	US_NO DESC
+	</entry>
+	<entry key="selectHostList">
+	 	SELECT
+	 		HST_NO
+	 	  , HST_NAME
+	 	  , HST_ID
+	 	  , HST_BSNO
+	 	  , HST_BSNAME
+	 	 FROM
+	 	 	HST_DB
+	 	 WHERE
+	 	 	HST_ACT = 'Y'
+	 	 ORDER BY
+	 	 	HST_NO DESC
+	</entry>
+</properties>

@@ -81,5 +81,12 @@
            </tr>
        </table>
     </div>
+    
+    <script>
+       		const adm_member = document.getElementById("adm_member");
+       		adm_member.addEventListener('click', function(){
+       			location.href='adm_member.jsp';
+       		});
+       </script>
 </body>
 </html>

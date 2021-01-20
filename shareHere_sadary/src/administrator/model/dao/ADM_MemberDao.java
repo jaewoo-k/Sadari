@@ -89,7 +89,7 @@ public class ADM_MemberDao {
 	}
 
 	// 3. 탈퇴 회원 리스트 출력용 메소드
-	public ArrayList<Object> selectOutList(Connection conn) {
+	/*public ArrayList<Object> selectOutList(Connection conn) {
 		ArrayList<Object> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -125,6 +125,6 @@ public class ADM_MemberDao {
 		}
 		
 		return null;
-	}
+	}*/
 
 }
