@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
+import member.model.vo.Host;
 import member.model.vo.User;
 
 /**
@@ -37,30 +38,63 @@ public class UpdateMemberServlet extends HttpServlet {
 //				비밀번호
 //				이메일
 //				휴대전화
+				
 				String userId = ((User)request.getSession().getAttribute("loginUser")).getUserId();
-				String userName = request.getParameter("us_name");
-				String userPwd = request.getParameter("us_pwd");
-				String userEmail = request.getParameter("us_email");
-				String userPhone = request.getParameter("us_phone");
-				System.out.println("userPhone값 : " + userPhone);
-				User u = new User(userId, userName, userPwd, userEmail, userPhone);
-				 System.out.println("수정하고자 하는 정보 : " + u);
+				String hostId = ((Host)request.getSession().getAttribute("loginHost")).getHst_id();
+				System.out.println("userId : " + userId);
+				System.out.println("hostId : " + userId);
 				
-				User updateMember = new MemberService().updateMember(u);
-				System.out.println("최종 User 값 : " + updateMember);
-				
-				
-				if(updateMember != null) {
-					request.getSession().setAttribute("msg", "회원 정보 수정이 완료되었습니다.");
-					request.getSession().setAttribute("loginUser", updateMember);
-					response.sendRedirect(request.getContextPath());
-				}else {
-					// 수정 실패시 에러 페이지로 forward
-					request.setAttribute("msg", "회원 정보 수정에 실패했습니다.");
-					request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response); 
+				// 유저
+				if(userId != null) {
+					String userName = request.getParameter("us_name");
+					String userPwd = request.getParameter("us_pwd");
+					String userEmail = request.getParameter("us_email");
+					String userPhone = request.getParameter("us_phone");
+					
+					System.out.println("userPhone값 : " + userPhone);
+					User u = new User(userId, userName, userPwd, userEmail, userPhone);
+					 System.out.println("수정하고자 하는 정보 : " + u);
+					
+					User updateMember = new MemberService().updateMember(u);
+					System.out.println("최종 User 값 : " + updateMember);
+					
+					
+					if(updateMember != null) {
+						request.getSession().setAttribute("msg", "회원 정보 수정이 완료되었습니다.");
+						request.getSession().setAttribute("loginUser", updateMember);
+						response.sendRedirect(request.getContextPath());
+					}else {
+						// 수정 실패시 에러 페이지로 forward
+						request.setAttribute("msg", "회원 정보 수정에 실패했습니다.");
+						request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response); 
+					}
+					
+//				호스트 마이페이지
+				}else if(hostId != null) {
+					String bsnum = request.getParameter("bsnum");
+					String bsname = request.getParameter("bsname");
+					
+					String userName = request.getParameter("us_name");
+					String userPwd = request.getParameter("us_pwd");
+					String userEmail = request.getParameter("us_email");
+					String userPhone = request.getParameter("us_phone");
+					Host h = new Host(bsnum, bsname, userId, userPwd, userName, userEmail, userPhone);
+					 System.out.println("수정하고자 하는 정보 : " + h);
+					
+					Host updateMember = new MemberService().updateMember(h);
+					System.out.println("최종 Host 값 : " + updateMember);
+					
+					if(updateMember != null) {
+						request.getSession().setAttribute("msg", "회원 정보 수정이 완료되었습니다.");
+						request.getSession().setAttribute("loginHost", updateMember);
+						response.sendRedirect(request.getContextPath());
+					}else {
+						// 수정 실패시 에러 페이지로 forward
+						request.setAttribute("msg", "회원 정보 수정에 실패했습니다.");
+						request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response); 
+					}
 				}
-		
-		
+				
 		
 		
 		

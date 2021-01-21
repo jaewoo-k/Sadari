@@ -52,6 +52,7 @@
                 <label class="block">생년월일</label><input type="date" id="birth" name="birth"><br><span id="birthresult"></span>
 <!-- 하나만 체크되게 하기 일단 안돼서 미리 체크 시켜놈-->
                 <label class="block">성별</label>
+                
                 <div class="genderoption">
                 	<input type="radio" name="gender" id="m" value="M" checked="checked"><label for="m">남자</label>
                 	<input type="radio" name="gender" id="f" value="F"><label for="f">여자</label>

@@ -57,6 +57,8 @@ public class LoginServlet extends HttpServlet {
 				request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
 			}
 			
+			
+			
 			// host 로그인 로직
 		}else if(membertype.charAt(0) == 'h'){
 			Host h = new Host(userId, userPwd);

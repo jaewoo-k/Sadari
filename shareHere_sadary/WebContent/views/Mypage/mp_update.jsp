@@ -5,6 +5,7 @@
 	Host h = (Host)session.getAttribute("loginHost");
 	
 	String gender = (u.getUserGender().charAt(0) == 'M') ? "남자" : "여자";
+	String genderh = (h.getHst_gender().charAt(0) == 'M') ? "남자" : "여자";
 	
 // 	String email = (u.getUserEmail() != null) ? u.getUserEmail() : "";
 	
@@ -142,6 +143,8 @@
 	        <h1>회원 정보 수정</h1>
 	        <div id="wrap"> 
 	        	<!-- 코드추가 -->
+<!-- 일반회원 -->
+<% if(loginUser != null){ %>
 	            <h2><%= u.getUserName() %> 님의 정보입니다.</h2>
 	            <form name="usr_updateForm" id="update_user" method="POST"
             action="<%= request.getContextPath() %>/member/update" onsubmit="return joinValidate();">
@@ -163,14 +166,58 @@
 	                    <div>&nbsp;&nbsp;<h4 class='join_title'>휴대전화 : </h4><input type="tel" name="us_phone" id="phone" value="<%= u.getUserPhone() %>"></div>
 	                    <span id="phoneresult">&nbsp;</span>
 	                </div>
-	                    
-	                    
+<!-- 호스트 회원 -->
+<% }else if(loginHost != null){ %>	                
+				<h2><%= h.getHst_name() %> 님의 정보입니다.</h2>
+	            <form name="usr_updateForm" id="update_host" method="POST"
+            action="<%= request.getContextPath() %>/member/update" onsubmit="return joinValidate();">
+	                <div id="Lwrap">
+		                <div></div><h4 class="join_title">사업자번호(-없이) : </h4><input type="text" id="bsnum" name="bsnum" readonly></div>
+		                <span id="bsnumresult"></span>
+	                    <div><h4 class="join_title">이름 : </h4><input type="text" maxlength="5" name="us_name" id="name" value="<%= h.getHst_name() %>"></div>
+	                    <span id="nameresult">&nbsp;</span>
+	                    <div><h4 class='join_title'>성별 : </h4><input type="text" value="<%= genderh %>" id="gender" readonly></div>
+	                    <span>&nbsp;</span>
+	                    <div><h4 class='join_title'>비밀번호 : </h4><input type="password" name="us_pwd" id="pwd" value="<%= h.getHst_pwd()%>"></div>
+	                    <span id="pwdresult">&nbsp;</span>
+	                    <div><h4 class='join_title'>비밀번호 확인 : </h4><input type="password" id="pwd2" value="<%= h.getHst_pwd()%>"></div>
+	                    <span id="pwd2result">&nbsp;</span>
+	                </div>
+	                <div id="Rwrap">
+	                	<div></div><h4 class="join_title">상호명 : </h4><input type="text" id="bsname" name="bsname" readonly></div>
+	                    <span id="bsnameresult"></span>
+	                    <div>&nbsp;&nbsp;<h4 class='join_title'>생년월일 : </h4><input type="text" id="birth" readonly value="<%= h.getHst_birth()%>"></div>
+	                    <span id="birthresult">&nbsp;</span>
+	                    <div>&nbsp;&nbsp;<h4 class='join_title'>이메일 : </h4><input type="email" name="us_email" id="email" value="<%= h.getHst_email()%>"></div>
+	                    <span id="emailresult">&nbsp;</span>
+	                    <div>&nbsp;&nbsp;<h4 class='join_title'>휴대전화 : </h4><input type="tel" name="us_phone" id="phone" value="<%= h.getHst_phone() %>"></div>
+	                    <span id="phoneresult">&nbsp;</span>
+	                </div>
+<%} %>	                    
 	                    
 	                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                <button id="back" onsubmit="history goBack()">뒤로가기</button>
 	                <button id="modify">수정하기</button>
 					<script>
                     $(function () {
+                    	$("#bsnum").change(function(){
+                    		var regbsnum = /^[0-9]{10}$/;	
+                    		if(!regbsnum.test($(this).val())){
+                    			$("#bsnumresult").html("10자리 숫자만 입력하세요").css("color", "red");
+                    		}else{
+                    			 $("#bsnumresult").html("정상 입력").css("color", "green");
+                    		}
+                    	});
+                    	
+                    	$("#bsname").change(function(){
+                    		// 빈값 못오게
+                    		var regbsnum = /^.+$/;	
+                    		if(!regbsnum.test($(this).val())){
+                    			$("#bsnameresult").html("상호명을 입력해주세요.").css("color", "red");
+                    		}else{
+                    			 $("#bsnameresult").html("입력 완료").css("color", "green");
+                    		}
+                    	});
                         $("#name").change(function () {
                             var regname = /^[가-힣]{2,5}$/;     //2~5글자의 한글 이름
                             if (regname.test($(this).val())) {
@@ -264,6 +311,18 @@
 			location.href="<%= request.getContextPath() %>";
 		});
 		function joinValidate(){
+			if(!(/^.+$/.test($("#bsname").val()))){
+				alert('상호명을 입력하세요.');
+				$("#bsname").select();
+				return false;
+			}
+			
+			if(!(/^[0-9]{10}$/).test($("#bsnum").val())){
+				alert('사업자번호는 -를 제외한 숫자 10자리 입력');
+				$("#bsnum").select();
+				return false;
+			}
+			
 			if(!(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,16}/.test($("#pwd").val()))){
 				alert('비밀번호는 영어대소문자,숫자,특수문자를 포함한 8자리~16자리로 설정해 주세요.');
 				$("#pwd").select();

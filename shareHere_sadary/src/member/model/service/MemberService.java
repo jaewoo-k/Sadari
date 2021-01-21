@@ -25,7 +25,6 @@ public class MemberService {
 		System.out.println("h 서비스값 : " + h);
 		
 		Host loginHost = new MemberDao().loginMember(conn, h);
-		System.out.println("loginHost 서비스값 : " + loginHost);
 		close(conn);
 		return loginHost;
 	}
@@ -67,6 +66,23 @@ public class MemberService {
 		
 		if(result > 0) {
 			updateMember = new MemberDao().selectmember(conn, u.getUserId());
+			System.out.println("업데이트 성공 시 updateMember : " + updateMember);
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateMember;
+	}
+	public Host updateMember(Host h) {
+		Connection conn = getConnection();
+		Host updateMember = null;
+		
+		int result = new MemberDao().updateMember(conn, h);
+		System.out.println("서비스 updateMember (결과) " + result);
+		
+		if(result > 0) {
+			updateMember = new MemberDao().selectHmember(conn, h.getHst_id());
 			System.out.println("업데이트 성공 시 updateMember : " + updateMember);
 			commit(conn);
 		}else {

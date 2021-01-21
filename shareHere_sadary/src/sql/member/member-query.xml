@@ -129,6 +129,26 @@
 			  US_ID = ?
 		  AND US_ACT = 'Y' 
 	</entry>
+	<entry key="selectHMember">
+		SELECT
+			  HST_NO
+			, HST_ID
+			, HST_PWD
+			, HST_NAME
+			, HST_BIRTH
+			, HST_GENDER
+			, HST_EMAIL
+			, HST_PHONE
+			, HST_BSNO
+			, HST_BSNAME
+			, HST_ACT
+			, HST_STOP
+		 FROM
+		 	  HST_DB
+		WHERE
+			  HST_ID = ?
+		  AND HST_ACT = 'Y' 
+	</entry>
 </properties>
 
 

@@ -224,5 +224,51 @@ public class MemberDao {
 		return updateUser;
 	}
 	
+	
+	public int updateMember(Connection conn, Host h) {
+		return 0;
+	}
+	
+	
+	
+	public Host selectHmember(Connection conn, String hst_id) {
+		Host updateUser = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectHMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, hst_id);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				updateUser = new Host(rset.getString("HST_NO"),
+								      rset.getString("HST_ID"),
+								      rset.getString("HST_PWD"),
+									  rset.getString("HST_NAME"),
+									  rset.getDate("HST_BIRTH"),
+									  rset.getString("HST_GENDER"),
+									  rset.getString("HST_EMAIL"),
+									  rset.getString("HST_PHONE"),
+									  rset.getString("HST_BSNO"),
+									  rset.getString("HST_BSNAME"),
+									  rset.getString("HST_ACT"),
+									  rset.getDate("HST_STOP"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		System.out.println("Dao 에서 select 한 updateUser 결과 : " + updateUser);
+		return updateUser;
+	}
+	
 
 }
