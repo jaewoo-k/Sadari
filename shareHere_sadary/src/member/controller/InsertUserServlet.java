@@ -30,6 +30,7 @@ public class InsertUserServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    // User 회원가입 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
@@ -49,6 +50,7 @@ public class InsertUserServlet extends HttpServlet {
 		
 		if(result > 0) {
 			request.getSession().setAttribute("msg", "회원가입이 완료되었습니다.");
+			request.getSession().setAttribute("loginUser", u);		// 자동로그인
 			response.sendRedirect(request.getContextPath());
 		}else {
 			request.setAttribute("msg", "회원가입에 실패하였습니다.");
