@@ -1,29 +1,23 @@
 package administrator.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import administrator.model.service.ADM_MemberService;
-import administrator.model.vo.Outmember;
-
 /**
- * Servlet implementation class OutmemberListServlet
+ * Servlet implementation class ComebackMemberServlet
  */
-@WebServlet("/outmem/list")
-public class OutmemberListServlet extends HttpServlet {
+@WebServlet("/comeback")
+public class ComebackMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OutmemberListServlet() {
+    public ComebackMemberServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +26,8 @@ public class OutmemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Outmember> list = new ADM_MemberService().selectOutList();
-	
-		request.setAttribute("list", list);
 		
-		RequestDispatcher view = request.getRequestDispatcher("/views/admin/admin_outmemList.jsp");
-		view.forward(request, response);
+		
 	}
 
 	/**

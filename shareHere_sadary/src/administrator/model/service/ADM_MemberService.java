@@ -6,6 +6,7 @@ import static common.JDBCTemplate.*;
 
 import administrator.model.dao.ADM_MemberDao;
 import administrator.model.vo.Hostmember;
+import administrator.model.vo.Outmember;
 import administrator.model.vo.Usermember;
 
 public class ADM_MemberService {
@@ -30,9 +31,9 @@ public class ADM_MemberService {
 	}
 
 	// 3. 탈퇴 회원 리스트 조회용 메소드
-	public ArrayList<Object> selectOutList() {
+	public ArrayList<Outmember> selectOutList() {
 		Connection conn = getConnection();
-		ArrayList<Object> list = new ADM_MemberDao().selectOutList(conn);
+		ArrayList<Outmember> list = new ADM_MemberDao().selectOutList(conn);
 		
 		close(conn);
 		return list;

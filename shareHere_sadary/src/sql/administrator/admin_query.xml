@@ -29,4 +29,33 @@
 	 	 ORDER BY
 	 	 	HST_NO DESC
 	</entry>
+	<entry key="selectOutList">
+	SELECT 
+			US_NO
+		  , US_ID
+		  , US_NAME
+		  , US_EMAIL
+		  , US_ACT
+		  , US_STOP
+		  , HST_NO
+		  , HST_ID
+		  , HST_NAME
+		  , HST_EMAIL
+		  , HST_ACT
+		  , HST_STOP
+		  
+	FROM 
+			V1
+	WHERE 
+			US_ACT = 'N'
+	OR 
+			US_ACT = 'B'
+	OR 
+			HST_ACT = 'N'
+	OR 
+			HST_ACT = 'B'
+	ORDER BY 
+			US_STOP DESC
+		  , HST_STOP DESC
+	</entry>
 </properties>
