@@ -5,7 +5,6 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import administrator.model.vo.Usermember;
 import member.model.dao.MemberDao;
 import member.model.vo.Host;
 import member.model.vo.User;
