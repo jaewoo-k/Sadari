@@ -23,7 +23,7 @@
         .wrap{
             width: 100%;
             height: 1119px;
-
+		
         } 
         /* 헤더 */
         .header{
@@ -142,7 +142,7 @@
 
 <!-- 로그인 선택을 어떻게해야할지         -->
                 <form method="post" id="loginForm" action="<%= request.getContextPath() %>/member/login"
-                onsubmit="return loginValidate();">
+                onsubmit="return validate();">
                 	
                     <label class="index">아이디</label>
                     <!-- required 나중에 지워주기(자바스크립트 추가 시) -->
@@ -153,8 +153,7 @@
                     <input type="password" name="userPwd" id="userPwd" class="loginput"><br>
                     
                     <br>
-<!-- 					<label class="block">회원유형</label> -->
-<!-- 					<label class="block" style="text-align:center">회원유형</label> -->
+                    
 <!-- id for 일치/// -->
 					<div class="membertype">
 	                    <input type="radio" name="mtype" id="utype" value="u">
@@ -171,7 +170,8 @@
                     <input class="login" type="submit" value="로그인">
                     <script>
                     function validate(){
-    					// 아이디, 패스워드 중 입력 되지 않은 값이 있을 시 alert 후 focus 처리 -> submit X
+    					var membertype = $("input[name=mtype]:checked").val();
+    					
     					if($("#userId").val().trim().length == 0){
     						alert('아이디를 입력하세요');
     						$("#userId").focus();
@@ -180,6 +180,12 @@
     					if($("#userPwd").val().trim().length == 0){
     						alert('비밀번호를 입력하세요');
     						$("#userPwd").focus();
+    						return false;
+    					}
+    					
+    					if(membertype == null){
+    						alert('회원 타입을 선택해주세요.');
+    						$(".membertype").css({"border":"2px solid red"});
     						return false;
     					}
     					return true;
