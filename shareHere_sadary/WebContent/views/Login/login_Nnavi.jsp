@@ -156,10 +156,12 @@
                     
 <!-- id for 일치/// -->
 					<div class="membertype">
+					<span id="mtypeunsel">
 	                    <input type="radio" name="mtype" id="utype" value="u">
 	                    <label for="utype">일반회원</label> 
 	                    <input type="radio" name="mtype" id="htype" value="h">
 	                    <label for="htype">호스트</label>
+					</span>
 					</div>
 
 
@@ -185,7 +187,9 @@
     					
     					if(membertype == null){
     						alert('회원 타입을 선택해주세요.');
-    						$(".membertype").css({"border":"2px solid red"});
+//     						$(".membertype").css({"border":"2px solid red"});
+    						$("#mtypeunsel").css({"border":"1.3px dotted gray"});
+
     						return false;
     					}
     					return true;
