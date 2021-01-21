@@ -143,13 +143,14 @@
 	        <div id="wrap"> 
 	        	<!-- 코드추가 -->
 	            <h2><%= u.getUserName() %> 님의 정보입니다.</h2>
-	            <form id="usr_updateForm">
+	            <form name="usr_updateForm" id="update_user" method="POST"
+            action="<%= request.getContextPath() %>/member/update" onsubmit="return joinValidate();">
 	                <div id="Lwrap">
-	                    <div><h4 class="join_title">이름 : </h4><input type="text" maxlength="5" name=us_name id="name" value="<%= u.getUserName() %>"></div>
+	                    <div><h4 class="join_title">이름 : </h4><input type="text" maxlength="5" name="us_name" id="name" value="<%= u.getUserName() %>"></div>
 	                    <span id="nameresult">&nbsp;</span>
 	                    <div><h4 class='join_title'>성별 : </h4><input type="text" value="<%= gender %>" id="gender" readonly></div>
 	                    <span>&nbsp;</span>
-	                    <div><h4 class='join_title'>비밀번호 : </h4><input type="password" id="pwd" value="<%= u.getUserPwd()%>"></div>
+	                    <div><h4 class='join_title'>비밀번호 : </h4><input type="password" name="us_pwd" id="pwd" value="<%= u.getUserPwd()%>"></div>
 	                    <span id="pwdresult">&nbsp;</span>
 	                    <div><h4 class='join_title'>비밀번호 확인 : </h4><input type="password" id="pwd2" value="<%= u.getUserPwd()%>"></div>
 	                    <span id="pwd2result">&nbsp;</span>
@@ -157,18 +158,19 @@
 	                <div id="Rwrap">
 	                    <div>&nbsp;&nbsp;<h4 class='join_title'>생년월일 : </h4><input type="text" id="birth" readonly value="<%= u.getUserBirth()%>"></div>
 	                    <span id="birthresult">&nbsp;</span>
-	                    <div>&nbsp;&nbsp;<h4 class='join_title'>이메일 : </h4><input type="email" id="email" value="<%= u.getUserEmail()%>"></div>
+	                    <div>&nbsp;&nbsp;<h4 class='join_title'>이메일 : </h4><input type="email" name="us_email" id="email" value="<%= u.getUserEmail()%>"></div>
 	                    <span id="emailresult">&nbsp;</span>
-	                    <div>&nbsp;&nbsp;<h4 class='join_title'>휴대전화 : </h4><input type="tel" id="phone" value="<%= u.getUserPhone() %>"></div>
+	                    <div>&nbsp;&nbsp;<h4 class='join_title'>휴대전화 : </h4><input type="tel" name="us_phone" id="phone" value="<%= u.getUserPhone() %>"></div>
 	                    <span id="phoneresult">&nbsp;</span>
 	                </div>
 	                    
 	                    
 	                    
 	                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                <button id="back">뒤로가기</button>
+	                <button id="back" onsubmit="history goBack()">뒤로가기</button>
 	                <button id="modify">수정하기</button>
 					<script>
+                    $(function () {
                         $("#name").change(function () {
                             var regname = /^[가-힣]{2,5}$/;     //2~5글자의 한글 이름
                             if (regname.test($(this).val())) {
@@ -252,11 +254,44 @@
 				</form>
 	
 	            <!-- 유효성 피드백 -->
-	            
-	            
 	        </div>
         </div>
     </section>
+    <script>
+    // 뒤로가기 버튼
+		const back = document.getElementById('back');
+		back.addEventListener('click', function(){
+			location.href="<%= request.getContextPath() %>";
+		});
+		function joinValidate(){
+			if(!(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,16}/.test($("#pwd").val()))){
+				alert('비밀번호는 영어대소문자,숫자,특수문자를 포함한 8자리~16자리로 설정해 주세요.');
+				$("#pwd").select();
+				return false;
+			}
+			if($("#pwd2").val() != $("#pwd").val()){
+				alert('비밀번호가 일치하지 않습니다.');
+				$("#pwd2").select();
+				return false;
+			}
+			if(!(/^[가-힣]{2,5}$/).test($("#name").val())){
+				alert('이름은 한글 2~5글자 사이만 가능');
+				$("#name").select();
+				return false;
+			}
+			if(!((/^[a-z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i).test($("#email").val()))){
+				alert('이메일주소를 확인해주세요.');
+				$("#email").select();
+				return false;
+			}
+			if(!(/^010\D?\d{4}\D?\d{4}$|^01[16789]\D?\d{3}\D?\d{4}$/).test($("#phone").val())){
+				alert('휴대전화번호를 확인해주세요.');
+				$("#phone").select();
+				return false;
+			}
+			return true;
+		}
+	</script>
         <!--  페이지를 이동해도 footer는 계속 상단에 노출되게끔 -->
    <%@include file="/views/common/footer.jsp" %>
 </body>

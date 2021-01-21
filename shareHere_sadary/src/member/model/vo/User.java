@@ -40,6 +40,29 @@ public class User  {
 
 
 
+	public User(String userPwd, String userName, String userEmail, String userPhone) {
+		super();
+		this.userName = userName;
+		this.userPwd = userPwd;
+		this.userEmail = userEmail;
+		this.userPhone = userPhone;
+	}
+
+
+
+
+	// UpdateMemberServlet
+	public User(String userId, String userName, String userPwd, String userEmail, String userPhone) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.userPwd = userPwd;
+		this.userEmail = userEmail;
+		this.userPhone = userPhone;
+	}
+
+
+
 	public User(String userId, String userPwd, String userName, Date userBirth, String userGender, String userEmail,
 			String userPhone) {
 		super();

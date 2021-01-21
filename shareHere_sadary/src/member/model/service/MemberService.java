@@ -57,5 +57,60 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	// 유저 회원정보수정 (수정중
+	public User updateMember(User u) {
+		Connection conn = getConnection();
+		User updateMember = null;
+		
+		int result = new MemberDao().updateMember(conn, u);
+		System.out.println("서비스 updateMember (결과) " + result);
+		
+		if(result > 0) {
+			updateMember = new MemberDao().selectmember(conn, u.getUserId());
+			System.out.println("업데이트 성공 시 updateMember : " + updateMember);
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateMember;
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

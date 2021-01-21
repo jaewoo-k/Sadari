@@ -53,7 +53,6 @@ public class hst_InfoServlet extends HttpServlet {
 		String[] shCafeArr = request.getParameterValues("hCafe");
 		String[] shConArr = request.getParameterValues("hCon");
 		
-		
 		String shPers = "";
 		String shComs = "";
 		String shSs = "";

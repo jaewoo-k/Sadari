@@ -67,7 +67,6 @@ public class MemberDao {
 		String sql = prop.getProperty("loginHMember");
 		try  {
 			pstmt = conn.prepareStatement(sql);
-			System.out.println("dao ssssss " + h.getHst_id());
 			
 			pstmt.setString(1, h.getHst_id());
 			pstmt.setString(2, h.getHst_pwd());
@@ -128,6 +127,8 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	// userId로 회원 한명 조회용 dao
 	public int insertHMember(Connection conn, Host h) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -154,6 +155,73 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	// 회원 정보 수정용 dao
+	public int updateMember(Connection conn, User u) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, u.getUserName());
+			pstmt.setString(2, u.getUserPwd());
+			pstmt.setString(3, u.getUserEmail());
+			pstmt.setString(4, u.getUserPhone());
+			pstmt.setString(5, u.getUserId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	// 회원 1명 조회용 dao
+	public User selectmember(Connection conn, String userId) {
+		User updateUser = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			// 아이디 넣음
+			pstmt.setString(1, userId);
+			
+			// 결과값 저장
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				updateUser = new User(rset.getString("US_NO"),
+										 rset.getString("US_ID"),
+										 rset.getString("US_PWD"),
+										 rset.getString("US_NAME"),
+										 rset.getDate("US_BIRTH"),
+										 rset.getString("US_GENDER"),
+										 rset.getString("US_EMAIL"),
+										 rset.getString("US_PHONE"),
+										 rset.getString("US_ACT"),
+										 rset.getDate("US_STOP"));
+			}
+				
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		System.out.println("Dao 에서 select 한 updateUser 결과 : " + updateUser);
+		return updateUser;
 	}
 	
 

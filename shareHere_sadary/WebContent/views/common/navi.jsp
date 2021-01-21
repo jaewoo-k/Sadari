@@ -3,6 +3,7 @@
 <%
 	User loginUser = (User)session.getAttribute("loginUser");
 	Host loginHost = (Host)session.getAttribute("loginHost");
+	Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
 %>
 <!DOCTYPE html>
 <html>
@@ -85,6 +86,23 @@
                 <li><button type="button" id="outBtn">Logout</button></li> 
 <!-- 마이페이지로 갈때, 비밀번호 입력하는 방법 고민해보기 -->
                 <li><a style="text-decoration: none; color: black;" id="user_name" href="<%=request.getContextPath()%>/views/Mypage/mp_update.jsp"><%= loginHost.getHst_name() %>님 환영합니다.</a></li>
+            </ul>
+            
+            <a href="#" class="navibar_toggleBtn" style="width: 5%;">
+                <img src="./main_img/bars-solid.svg" style="width: 100%;">
+            </a>
+            <script>
+            const outBtn = document.getElementById('outBtn');	//로그아웃
+        	outBtn.addEventListener('click',function(){
+        		location.href='<%= request.getContextPath() %>/member/logout';
+        	});
+            </script>
+            <%}else if(loginAdmin != null){ %>
+<!-- 관리자 로그인됐을때 -->
+            <ul class="nav_buttons">
+                <li><button type="button" id="outBtn">Logout</button></li> 
+<!-- 이름 클릭했을때 주소 입력해주시고, 버튼으로 바꾸셔도되고 배치는 은솔님 하고싶은거 넣으시면돼요 -->
+                <li><a style="text-decoration: none; color: black;" id="user_name" href="<%=request.getContextPath()%><%-- 여기에 이동하고싶은거 넣으세용--%>"><%= loginAdmin.getAdm_id() %>님 환영합니다.</a></li>
             </ul>
             
             <a href="#" class="navibar_toggleBtn" style="width: 5%;">

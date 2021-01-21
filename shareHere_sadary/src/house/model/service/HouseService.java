@@ -11,7 +11,7 @@ public class HouseService {
 	
 	public int insertInfo(HostInfo info) {
 		Connection conn = getConnection();
-		
+		//
 		int result = new HouseDao().insertInfo(conn, info);
 		
 		

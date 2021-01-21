@@ -39,6 +39,8 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("request.getParameter(\"userId\") : " + request.getParameter("userId"));
 		System.out.println("request.getParameter(\"userPwd\") : " + request.getParameter("userPwd"));
 		
+		
+		
 		// user일경우 로그인 로직
 		if(membertype.charAt(0) == 'u') {
 

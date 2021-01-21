@@ -3,9 +3,10 @@
 
 ### Eclipse ###
 bin/
-.settings/
+.settings
 
 # Package Files #
 *.jar
 
 .classpath
+.project

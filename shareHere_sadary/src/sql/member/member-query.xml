@@ -100,6 +100,35 @@
 		  , 'Y'
 		)
 	</entry>
+	<entry key="updateMember">
+		UPDATE
+			USER_DB
+		SET
+			US_NAME = ?
+		  , US_PWD = ?
+		  , US_EMAIL = ?
+		  , US_PHONE = ?
+		WHERE
+			US_ID = ?
+	</entry>
+	<entry key="selectMember">
+		SELECT
+			  US_NO
+			, US_ID
+			, US_PWD
+			, US_NAME
+			, US_BIRTH
+			, US_GENDER
+			, US_EMAIL
+			, US_PHONE
+			, US_ACT
+			, US_STOP
+		 FROM
+		 	  USER_DB
+		WHERE
+			  US_ID = ?
+		  AND US_ACT = 'Y' 
+	</entry>
 </properties>
 
 
