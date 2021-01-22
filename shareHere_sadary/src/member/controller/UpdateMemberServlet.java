@@ -39,24 +39,25 @@ public class UpdateMemberServlet extends HttpServlet {
 //				이메일
 //				휴대전화
 				
-				String userId = ((User)request.getSession().getAttribute("loginUser")).getUserId();
-				String hostId = ((Host)request.getSession().getAttribute("loginHost")).getHst_id();
-				System.out.println("userId : " + userId);
-				System.out.println("hostId : " + userId);
+//				String userId = ((User)request.getSession().getAttribute("loginUser")).getUserId();
+//				String hostId = ((Host)request.getSession().getAttribute("loginHost")).getHst_id();
+//				System.out.println("userId : " + userId);
+//				System.out.println("hostId : " + userId);
 				
-				// 유저
-				if(userId != null) {
+				// 유저 (유저아이디 값이 비어있지 않다면)
+					if(request.getParameter("user_no").charAt(0) == 'u') {
+//						System.out.println("u문 실행");
 					String userName = request.getParameter("us_name");
 					String userPwd = request.getParameter("us_pwd");
 					String userEmail = request.getParameter("us_email");
 					String userPhone = request.getParameter("us_phone");
 					
-					System.out.println("userPhone값 : " + userPhone);
-					User u = new User(userId, userName, userPwd, userEmail, userPhone);
-					 System.out.println("수정하고자 하는 정보 : " + u);
+					// (유저아이디값, 등을 매개변수로 넘겨주고 유저에 저장)
+					User u = new User(request.getParameter("user_id"), userName, userPwd, userEmail, userPhone);
+//					 System.out.println("수정하고자 하는 정보 : " + u);
 					
 					User updateMember = new MemberService().updateMember(u);
-					System.out.println("최종 User 값 : " + updateMember);
+//					System.out.println("최종 User 값 : " + updateMember);
 					
 					
 					if(updateMember != null) {
@@ -70,7 +71,8 @@ public class UpdateMemberServlet extends HttpServlet {
 					}
 					
 //				호스트 마이페이지
-				}else if(hostId != null) {
+				}else if(request.getParameter("user_no").charAt(0) == 'h'){
+//					System.out.println("h문 실행");
 					String bsnum = request.getParameter("bsnum");
 					String bsname = request.getParameter("bsname");
 					
@@ -78,11 +80,11 @@ public class UpdateMemberServlet extends HttpServlet {
 					String userPwd = request.getParameter("us_pwd");
 					String userEmail = request.getParameter("us_email");
 					String userPhone = request.getParameter("us_phone");
-					Host h = new Host(bsnum, bsname, userId, userPwd, userName, userEmail, userPhone);
-					 System.out.println("수정하고자 하는 정보 : " + h);
+					Host h = new Host(bsnum, bsname, request.getParameter("user_id"), userPwd, userName, userEmail, userPhone);
+//					 System.out.println("수정하고자 하는 정보 : " + h);
 					
 					Host updateMember = new MemberService().updateMember(h);
-					System.out.println("최종 Host 값 : " + updateMember);
+//					System.out.println("최종 Host 값 : " + updateMember);
 					
 					if(updateMember != null) {
 						request.getSession().setAttribute("msg", "회원 정보 수정이 완료되었습니다.");

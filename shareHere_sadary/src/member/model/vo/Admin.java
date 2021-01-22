@@ -11,6 +11,14 @@ public class Admin {
 	private String adm_depart;	// 부서
 	
 	public Admin() {}
+	
+	
+	// 관리자 로그인용
+	public Admin(String adm_id, String adm_pwd) {
+		super();
+		this.adm_id = adm_id;
+		this.adm_pwd = adm_pwd;
+	}
 
 	public Admin(int adm_num, String adm_id, String adm_pwd, String adm_depart) {
 		super();

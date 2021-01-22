@@ -85,13 +85,6 @@ public class Host  {
 		this.hst_stop = hst_stop;
 	}
 
-
-	
-
-
-
-
-
 // 일단 지워버림 ㅎㅎ; 어디서 오류가 날까요
 //	public Host(String hst_no, String hst_id, String hst_name, String hst_bsno, String hst_bsname) {
 //		super();

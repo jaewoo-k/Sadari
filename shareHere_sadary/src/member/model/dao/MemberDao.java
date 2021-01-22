@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import member.model.vo.Admin;
 import member.model.vo.Host;
 import member.model.vo.User;
 
@@ -87,7 +88,7 @@ public class MemberDao {
 									 rset.getString("HST_BSNAME"),
 									 rset.getString("HST_ACT"),
 									 rset.getDate("HST_STOP"));
-				System.out.println("loginHost if문값 : " + loginHost);
+//				System.out.println("loginHost if문값 : " + loginHost);
 				
 			}
 			
@@ -97,8 +98,41 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("loginHost dao최종값 : " + loginHost);
+//		System.out.println("loginHost dao최종값 : " + loginHost);
 		return loginHost;
+	}
+	// 로그인(관리자)
+	public Admin loginMember(Connection conn, Admin a) {
+		Admin loginAdmin = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("loginAMember");
+		try  {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, a.getAdm_id());
+			pstmt.setString(2, a.getAdm_pwd());
+			
+			rset = pstmt.executeQuery();
+			
+			
+			if(rset.next()) {
+				loginAdmin = new Admin(rset.getInt("adm_num"),
+									  rset.getString("adm_id"),
+									  rset.getString("adm_pwd"),
+									  rset.getString("adm_depart"));
+				System.out.println("loginAdmin if문값 : " + loginAdmin);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+//		System.out.println("loginHost dao최종값 : " + loginHost);
+		return loginAdmin;
 	}
 	
 	// 회원가입 user dao
@@ -182,6 +216,32 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	public int updateMember(Connection conn, Host h) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateHMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, h.getHst_name());
+			pstmt.setString(2, h.getHst_pwd());
+			pstmt.setString(3, h.getHst_email());
+			pstmt.setString(4, h.getHst_phone());
+			pstmt.setString(5, h.getHst_id());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 	// 회원 1명 조회용 dao
 	public User selectmember(Connection conn, String userId) {
 		User updateUser = null;
@@ -220,16 +280,9 @@ public class MemberDao {
 			close(rset);
 		}
 		
-		System.out.println("Dao 에서 select 한 updateUser 결과 : " + updateUser);
+//		System.out.println("Dao 에서 select 한 updateUser 결과 : " + updateUser);
 		return updateUser;
 	}
-	
-	
-	public int updateMember(Connection conn, Host h) {
-		return 0;
-	}
-	
-	
 	
 	public Host selectHmember(Connection conn, String hst_id) {
 		Host updateUser = null;
@@ -266,9 +319,10 @@ public class MemberDao {
 			close(rset);
 		}
 		
-		System.out.println("Dao 에서 select 한 updateUser 결과 : " + updateUser);
+//		System.out.println("Dao 에서 select 한 updateUser 결과 : " + updateUser);
 		return updateUser;
 	}
+	
 	
 
 }

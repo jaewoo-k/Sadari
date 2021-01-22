@@ -71,8 +71,16 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute("loginHost", loginHost);
 				response.sendRedirect(request.getContextPath());
 			}else {
+				// 원본
 				request.setAttribute("msg", "로그인에 실패하였습니다.");
 				request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
+				
+				
+//도전   			페이지는 그대로, 틀렷다는 정보만 띄우기
+				request.setAttribute("msg", "일치하는 정보가 없습니다.");
+//				request.getRequestDispatcher("/views/Login/login_Nnavi.jsp").forward(request, response);
+//				request.getRequestDispatcher("localhost:8702/shereHere/member/login").forward(request, response);
+//				response.sendRedirect(request.getContextPath()+"/views/Login/login_Nnavi.jsp");
 			}
 		}else {
 			request.setAttribute("msg", "일치하는 정보가 없습니다.");

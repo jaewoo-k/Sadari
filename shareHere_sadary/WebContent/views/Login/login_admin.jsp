@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login_easy</title>
+    <title>Admin login</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <!-- navi css 경로 -->
 	<link href ="${pageContext.request.contextPath}/views/common/nav_foot.css" rel="stylesheet" type="text/css">
@@ -148,10 +148,10 @@
 
         <section style="text-decoration:none;">
             <div class="section">
-                <h2>LogIn</h2>
+                <h2>Admin Login</h2>
 
 <!-- 로그인 선택을 어떻게해야할지         -->
-                <form method="post" id="loginForm" action="<%= request.getContextPath() %>/member/login"
+                <form method="post" id="loginForm" action="<%= request.getContextPath() %>/member/Adminlogin"
                 onsubmit="return validate();">
                 	
                     <label class="index">아이디</label>
@@ -162,22 +162,7 @@
                     <lable class="index">비밀번호</lable>
                     <input type="password" name="userPwd" id="userPwd" class="loginput"><br>
                     
-                    <br>
-                    
-<!-- id for 일치/// -->
-					<div class="membertype">
-					<span id="mtypeunsel">
-	                    <input type="radio" name="mtype" id="utype" value="u">
-	                    <label for="utype">일반회원</label> 
-	                    <input type="radio" name="mtype" id="htype" value="h">
-	                    <label for="htype">호스트</label>
-					</span>
-					</div>
-
-
-
-
-					<br>
+                    <br><br>
         
                     <input class="login" type="submit" value="로그인">
                     <script>
@@ -192,14 +177,6 @@
     					if($("#userPwd").val().trim().length == 0){
     						alert('비밀번호를 입력하세요');
     						$("#userPwd").focus();
-    						return false;
-    					}
-    					
-    					if(membertype == null){
-    						alert('회원 타입을 선택해주세요.');
-//     						$(".membertype").css({"border":"2px solid red"});
-    						$("#mtypeunsel").css({"border":"1.3px dotted gray"});
-
     						return false;
     					}
     					return true;
@@ -219,11 +196,6 @@
                         <a href="#" class="noline" id="registerA">회원가입</a>
                     </div>
                 </div>
-                <ul class="easylogin">
-                    <li><img src="image/login-google.png" alt="google"><a href="#" class="noline">Google 로그인</a></li>
-                    <li><img src="image/login-naver.png" alt="Naver"><a href="#" class="noline">Naver 로그인</a></li>
-                    <li><img src="image/login-kakao.png" alt="Kakao"><a href="#" class="noline">Kakao 로그인</a></li>
-                </ul>
             </div>
 
         </section>
@@ -236,11 +208,12 @@
 			// 회원가입버튼 분류하기
 				const reBtn = document.getElementById('registerA');
 				registerA.addEventListener('click', function(){
-					if(confirm('일반 회원이십니까?')){
-						location.href='<%= request.getContextPath() %>/views/Login/register_user.jsp';
-					}else{
-						location.href='<%= request.getContextPath() %>/views/Login/register_hst.jsp';
-					}
+// 					if(confirm('일반 회원이십니까?')){
+<%-- 						location.href='<%= request.getContextPath() %>/views/Login/register_user.jsp'; --%>
+// 					}else{
+<%-- 						location.href='<%= request.getContextPath() %>/views/Login/register_hst.jsp'; --%>
+// 					}
+					alert('관리자에게 문의하세요.');
 				});
 			</script>
 </body>

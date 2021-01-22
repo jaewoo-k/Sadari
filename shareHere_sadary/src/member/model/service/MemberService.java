@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import member.model.dao.MemberDao;
+import member.model.vo.Admin;
 import member.model.vo.Host;
 import member.model.vo.User;
 public class MemberService {
@@ -28,6 +29,16 @@ public class MemberService {
 		close(conn);
 		return loginHost;
 	}
+	
+	// 관리자 로그인용 
+		public Admin loginMember(Admin a) {
+			Connection conn = getConnection();
+			
+			Admin loginAdmin = new MemberDao().loginMember(conn, a);
+			
+			close(conn);
+			return loginAdmin;
+		}
 	
 	public int insertMember(User u) {
 		Connection conn = getConnection();
@@ -91,6 +102,7 @@ public class MemberService {
 		close(conn);
 		return updateMember;
 	}
+	
 
 	
 	

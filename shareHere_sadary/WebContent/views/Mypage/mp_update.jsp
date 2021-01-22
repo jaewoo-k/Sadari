@@ -4,11 +4,6 @@
 	User u = (User)session.getAttribute("loginUser");
 	Host h = (Host)session.getAttribute("loginHost");
 	
-	String gender = (u.getUserGender().charAt(0) == 'M') ? "남자" : "여자";
-	String genderh = (h.getHst_gender().charAt(0) == 'M') ? "남자" : "여자";
-	
-// 	String email = (u.getUserEmail() != null) ? u.getUserEmail() : "";
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -98,9 +93,8 @@
         #Rwrap{height:450px; width: 50%; float: left; display: flex; flex-direction: column; align-content:center}
         #Lwrap div{display: flex; justify-content: space-between;}
         #Rwrap div{display: flex; justify-content: space-between;}
-        .join_title{flex-basis: 35%;}.join_title ~input{flex-basis: 63%;}
+        .join_title{margin: 10px 0 10px 0;flex-basis: 35%;}.join_title ~input{flex-basis: 63%;}
         #wrap{padding : 20px;border: 3px solid rgb(196, 196, 196); height: auto;}
-        .join_title{margin: 10px 0 10px 0;}
         /* #back{margin-left: 130px;} */
         #back{margin-left: 15px;}
         #back,#modify{float:right; background-color: black;color : white;border-radius : 7px;font-size:medium;width: 130px;height : 30px;}
@@ -149,9 +143,12 @@
 	            <form name="usr_updateForm" id="update_user" method="POST"
             action="<%= request.getContextPath() %>/member/update" onsubmit="return joinValidate();">
 	                <div id="Lwrap">
+	                	<input type="hidden" name="user_no" value="<%= u.getUserNo() %>">
+	                	<input type="hidden" name="user_id" value="<%= u.getUserId() %>">
 	                    <div><h4 class="join_title">이름 : </h4><input type="text" maxlength="5" name="us_name" id="name" value="<%= u.getUserName() %>"></div>
 	                    <span id="nameresult">&nbsp;</span>
-	                    <div><h4 class='join_title'>성별 : </h4><input type="text" value="<%= gender %>" id="gender" readonly></div>
+<%-- 	                    <div><h4 class='join_title'>성별 : </h4><input type="text" value="<%= gender %>" id="gender" readonly></div> --%>
+	                    <div><h4 class='join_title'>성별 : </h4><input type="text" value="<%= (u.getUserGender().charAt(0) == 'M') ? "남자" : "여자" %>" id="gender" readonly></div>
 	                    <span>&nbsp;</span>
 	                    <div><h4 class='join_title'>비밀번호 : </h4><input type="password" name="us_pwd" id="pwd" value="<%= u.getUserPwd()%>"></div>
 	                    <span id="pwdresult">&nbsp;</span>
@@ -172,11 +169,13 @@
 	            <form name="usr_updateForm" id="update_host" method="POST"
             action="<%= request.getContextPath() %>/member/update" onsubmit="return joinValidate();">
 	                <div id="Lwrap">
-		                <div></div><h4 class="join_title">사업자번호(-없이) : </h4><input type="text" id="bsnum" name="bsnum" readonly></div>
-		                <span id="bsnumresult"></span>
+	                	<input type="hidden" name="user_no" value="<%= h.getHst_no() %>">
+	                	<input type="hidden" name="user_id" value="<%= h.getHst_id() %>">
+		                <div><h4 class="join_title">사업자번호(-없이) : </h4><input type="text" id="bsnum" name="bsnum" value="<%= h.getHst_bsno() %>" readonly></div>
+		                <span id="bsnumresult">&nbsp;</span>
 	                    <div><h4 class="join_title">이름 : </h4><input type="text" maxlength="5" name="us_name" id="name" value="<%= h.getHst_name() %>"></div>
 	                    <span id="nameresult">&nbsp;</span>
-	                    <div><h4 class='join_title'>성별 : </h4><input type="text" value="<%= genderh %>" id="gender" readonly></div>
+	                    <div><h4 class='join_title'>성별 : </h4><input type="text" value="<%= (h.getHst_gender().charAt(0) == 'M') ? "남자" : "여자" %>" id="gender" readonly></div>
 	                    <span>&nbsp;</span>
 	                    <div><h4 class='join_title'>비밀번호 : </h4><input type="password" name="us_pwd" id="pwd" value="<%= h.getHst_pwd()%>"></div>
 	                    <span id="pwdresult">&nbsp;</span>
@@ -184,8 +183,8 @@
 	                    <span id="pwd2result">&nbsp;</span>
 	                </div>
 	                <div id="Rwrap">
-	                	<div></div><h4 class="join_title">상호명 : </h4><input type="text" id="bsname" name="bsname" readonly></div>
-	                    <span id="bsnameresult"></span>
+	                	<div>&nbsp;&nbsp;<h4 class="join_title">상호명 : </h4><input type="text" id="bsname" name="bsname" value="<%= h.getHst_bsname() %>" readonly></div>
+	                    <span id="bsnameresult">&nbsp;</span>
 	                    <div>&nbsp;&nbsp;<h4 class='join_title'>생년월일 : </h4><input type="text" id="birth" readonly value="<%= h.getHst_birth()%>"></div>
 	                    <span id="birthresult">&nbsp;</span>
 	                    <div>&nbsp;&nbsp;<h4 class='join_title'>이메일 : </h4><input type="email" name="us_email" id="email" value="<%= h.getHst_email()%>"></div>
@@ -311,17 +310,17 @@
 			location.href="<%= request.getContextPath() %>";
 		});
 		function joinValidate(){
-			if(!(/^.+$/.test($("#bsname").val()))){
-				alert('상호명을 입력하세요.');
-				$("#bsname").select();
-				return false;
-			}
+// 			if(!(/^.+$/.test($("#bsname").val()))){
+// 				alert('상호명을 입력하세요.');
+// 				$("#bsname").select();
+// 				return false;
+// 			}
 			
-			if(!(/^[0-9]{10}$/).test($("#bsnum").val())){
-				alert('사업자번호는 -를 제외한 숫자 10자리 입력');
-				$("#bsnum").select();
-				return false;
-			}
+// 			if(!(/^[0-9]{10}$/).test($("#bsnum").val())){
+// 				alert('사업자번호는 -를 제외한 숫자 10자리 입력');
+// 				$("#bsnum").select();
+// 				return false;
+// 			}
 			
 			if(!(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,16}/.test($("#pwd").val()))){
 				alert('비밀번호는 영어대소문자,숫자,특수문자를 포함한 8자리~16자리로 설정해 주세요.');

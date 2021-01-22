@@ -1,7 +1,6 @@
 package member.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,44 +9,43 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
-import member.model.vo.User;
+import member.model.vo.Admin;
 
 /**
- * Servlet implementation class InsertUserServlet
+ * Servlet implementation class AdminLoginServlet
  */
-@WebServlet("/member/insertuser")
-public class InsertUserServlet extends HttpServlet {
+@WebServlet("/member/Adminlogin")
+public class AdminLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public InsertUserServlet() {
-         super();
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AdminLoginServlet() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
-    // User 회원가입  
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-		String userName = request.getParameter("userName");
-		Date birth = Date.valueOf(request.getParameter("birth"));
-		String userGender = request.getParameter("gender");
-		String userEmail = request.getParameter("email");
-		String userPhone = request.getParameter("phone");
+//테스트
+		System.out.println("request.getParameter(\"userId\") : " + request.getParameter("userId"));
+		System.out.println("request.getParameter(\"userPwd\") : " + request.getParameter("userPwd"));
 		
-		User u = new User(userId, userPwd, userName, birth, userGender, userEmail, userPhone);
-//		System.out.println("u :" + u);
-		
-		int result = new MemberService().insertMember(u);
-//		System.out.println("result : " + result);
-		
-		if(result > 0) {
-			request.getSession().setAttribute("msg", "회원가입이 완료되었습니다.");
-			request.getSession().setAttribute("loginUser", u);		// 자동로그인
+		Admin a = new Admin(userId, userPwd);
+
+		Admin loginAdmin = new MemberService().loginMember(a);
+		System.out.println("loginAdmin 값 : " + loginAdmin);
+
+		if(loginAdmin != null) {
+			request.getSession().setAttribute("loginAdmin", loginAdmin);
 			response.sendRedirect(request.getContextPath());
 		}else {
-			request.setAttribute("msg", "회원가입에 실패하였습니다.");
+			request.setAttribute("msg", "로그인에 실패하였습니다.");
 			request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
 		}
 	}
@@ -56,6 +54,7 @@ public class InsertUserServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
