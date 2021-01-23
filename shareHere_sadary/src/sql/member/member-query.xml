@@ -171,6 +171,22 @@
 			  HST_ID = ?
 		  AND HST_ACT = 'Y' 
 	</entry>
+	<entry key="idCheck1">
+		 SELECT
+				COUNT(*)
+		   FROM
+		   		USER_DB
+		  WHERE
+		  		US_ID = ?
+	</entry>
+	<entry key="idCheck2">
+		 SELECT
+				COUNT(*)
+		   FROM
+		   		HST_DB
+		  WHERE
+		  		HST_ID = ?
+	</entry>
 </properties>
 
 

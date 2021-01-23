@@ -16,6 +16,11 @@
     .block{display: block;}
     .wrap{width: 460px; height: 707px;margin: auto; height:auto;}
     #bsname{margin-bottom: 20px;}
+    /*버튼 옆에 띄우기 위해 */
+    #overdiv{width:560px; height:auto;}
+	/*중복확인버튼 */
+    #idCheck{font-size:0.875rem; width : 86px; height : 45px; color: black; margin-left:10px;border-style: groove; border-radius: 5px;background-color:black; color: rgb(237, 237, 237);}
+    #idCheck:hover{color:black; background-color: rgb(237, 237, 237);}
     input{width: 100%; height: 45px; background-color: rgb(237, 237, 237);border: 1px rgb(237, 237, 237) solid;border-style: groove; border-radius: 5px;}
     section{height:auto;}
     .genderoption{display: flex; justify-content: center; align-items:center;}
@@ -44,7 +49,13 @@
 
                     <!-- input onsubmit 유효성 검사 실시하기 -->
                 <!-- oninvalid="(script 구문)" -->
-                <label class="block">아이디</label><input type="text" id="id" name="userId"><span id="idresult"></span>
+                <label class="block">아이디</label>
+                
+                <div id="overdiv">
+                <input type="text" id="id" name="userId" style="width:460px;"><button type="button" id="idCheck">중복확인</button>
+                </div>
+                <span id="idresult"></span>
+                
                 <label class="block">비밀번호</label><input type="password" id="pwd" name="userPwd"><span id="pwdresult"></span>
                 <label class="block">비밀번호확인</label><input type="password" id="pwd2"><span id="pwd2result"></span>
                 <label class="block">이름</label><input type="text" id="name" name="userName"><span id="nameresult"></span>
@@ -179,6 +190,59 @@
                         });
 
                     });
+                    
+// 아이디 중복검사
+                    $(function(){
+            			// 아이디 중복 시 false, 아이디 사용 가능 시 true --> 유효성 검사를 위한 변수 
+            			var isUsable = false;
+            			
+            			$("#idCheck").click(function(){
+            				var userId = $("#register_host input[name='userId']");
+            				
+            				// UserId가 잘 가져와졌을때, 4글자 이상일 떄  발동하도록
+            				if(!userId || !(/^[a-z][a-z0-9]{3,15}$/.test($("#id").val()))){
+            					alert("영소문자를 시작하며 숫자를 포함한 4~16글자 이내여야 합니다.");
+            					userId.focus();
+            				}else{
+            					// 4자리 이상의 userId 값을 입력했을 경우 $.ajax() 통신
+            					$.ajax({
+            						url : "<%= request.getContextPath()%>/member/idCheck", 
+            						type : "post",
+            						data : {userId : userId.val()},
+            						success : function(data){
+            							console.log(data);
+            							if(data == "fail"){
+            								alert("사용할 수 없는 아이디입니다.");
+            								userId.focus();
+            							}else{
+            								//alert("사용 가능한 아이디입니다.");
+            								if(confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")){
+            									userId.prop('readonly', true);	// 더이상 id 수정 불가능
+            									isUsable = true; 	// 사용 가능한 아이디라는 flag 값
+            								}else{
+            									// confirm창에서 취소 누를경우 (처음, 또는 반복해서)
+            									userId.prop('readonly', false);	// 수정 가능하도록
+            									isUsable = false;
+            									userId.focus();
+            								}
+            							}
+            							
+            							// 아이디 중복 체크 후 중복이 아니며 사용하겠다고 선택한 경우
+            							// register_btn disabled 제거 
+            							if(isUsable){
+            								$("#register_btn").removeAttr("disabled");
+            							}else{
+            								$("#register_btn").attr("disabled", true);
+            							}
+            						},
+            						error : function(e){
+            							console.log(e);
+            						}
+            					});
+            				}
+            				
+            			});
+            		});
                 </script>
             </form>
             </div>

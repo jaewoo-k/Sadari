@@ -322,6 +322,51 @@ public class MemberDao {
 //		System.out.println("Dao 에서 select 한 updateUser 결과 : " + updateUser);
 		return updateUser;
 	}
+	public int idCheck(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		// 셀렉이지만 0명, 1명이기때문에 int값으로 리턴
+		int result = 0;
+		String sql1 = prop.getProperty("idCheck1");
+		String sql2 = prop.getProperty("idCheck2");
+		
+		// USER_DB ID 중복 쿼리문
+		try {
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result += rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		// HST_DB ID 중복 쿼리문
+		try {
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result += rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 

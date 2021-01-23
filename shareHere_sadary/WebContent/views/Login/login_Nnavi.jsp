@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String message = (String) request.getAttribute("msg");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,14 +14,13 @@
 	<link href ="${pageContext.request.contextPath}/views/common/nav_foot.css" rel="stylesheet" type="text/css">
 	
 <%-- msg읽어서 알람띄워주고 msg 삭제하기 (로그인하고 제자리 하고싶음) --%>
-<%-- <% if(session.getAttribute("msg") != null){ %> --%>
-<!-- <script> -->
-<%--    alert('<%= session.getAttribute("msg")%>'); --%>
-<!-- </script> -->
-<%-- <% --%>
-<!--      session.removeAttribute("msg");} -->
-<%-- %>    	 --%>
-
+<% if(session.getAttribute("msg") != null){ %>
+<script>
+   alert('<%= session.getAttribute("msg")%>');
+</script>
+<%
+    session.removeAttribute("msg");}
+%>    
     <style>
         *{box-sizing: border-box;font: 1rem "나눔 고딕",sans-serif}
         ol,li,ul{list-style-type: none;}
