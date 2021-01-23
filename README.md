@@ -1,9 +1,16 @@
 # Sadari_ShareHere
 
 ### Introduce ShareHere
-> 🏡꿈을 위해 나아가는 청년들의 주거 고민을 조금이라도 함께하고자 만들어진 쉐어히어는 쉐어하우스를 운영하는 운영자들에겐 공실에 대한 고민을, 쉐어하우스를 찾고있는 청년들에겐 나에게 적합한 쉐어하우스를 찾아주는 House기능과 각양각색 사람들 사이에서 나와 잘 맞는 룸메이트를 찾아주는 Roommate 기능으로 선두로 여러 사용자들 고민을 함께 들어주고자 합니다.    
+```
+> 🏡꿈을 위해 나아가는 청년들의 주거 고민을 조금이라도 함께하고자 만들어진 
+쉐어히어는 쉐어하우스를 운영하는 운영자들에겐 공실에 대한 고민을, 
+쉐어하우스를 찾고있는 청년들에겐 나에게 적합한 쉐어하우스를 찾아주는 House기능과 
+각양각색 사람들 사이에서 나와 잘 맞는 룸메이트를 찾아주는 Roommate 기능을
+선두로 여러 사용자들 고민을 함께 들어주고자 합니다. 
+```
    
 > 🏡ShareHere, which was created to share the housing concerns of young people who are advancing for their dreams, has a HOUSE function to find a share house that is suitable for me to the owners of the share house, and to the young people who are looking for a share house. With the ROOMMATE function that finds a roommate that fits you well among all kinds of people, we want to listen to the concerns of various users at the forefront.  
+
 
 <br>
 
