@@ -258,7 +258,7 @@ public class MemberDao {
 	}
 
 
-	// 회원 1명 조회용 dao
+	// 일반회원 1명 조회용 dao
 	public User selectmember(Connection conn, String userId) {
 		User updateUser = null;
 		PreparedStatement pstmt = null;
@@ -300,6 +300,7 @@ public class MemberDao {
 		return updateUser;
 	}
 
+	// Host회원 1명 조회용 dao
 	public Host selectHmember(Connection conn, String hst_id) {
 		Host updateUser = null;
 		PreparedStatement pstmt = null;
@@ -338,6 +339,8 @@ public class MemberDao {
 		//		System.out.println("Dao 에서 select 한 updateUser 결과 : " + updateUser);
 		return updateUser;
 	}
+	
+	// 아이디 중복시 중복된 인원수 리턴
 	public int idCheck(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
