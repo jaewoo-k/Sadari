@@ -74,12 +74,13 @@ span {
 #ta {
 	width: 100%;
 }
-
-/* 방 정보 */
-#room1, #room2 {
-	width: auto;
-	height: 900px;
+/* 방정보 
+#roomInfo1, #roomInfo2 {
+   width: auto;
+   height: auto;
 }
+*/
+
 /* 버튼 +  X */
 #r_btn {
 	background-color: white;
@@ -207,6 +208,3 @@ span {
 	background-color: black;
 	color: white;
 }
-</
-style
->
