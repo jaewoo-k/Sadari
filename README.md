@@ -23,11 +23,11 @@
 • 📈 관리자 : 회원 관리, 매물 관리, 신고 관리, 수입 관리  
 ```
 
-• 📝 Member : Login/Logout, Register, Find ID/PWD, Update member information  
-• 🏠 House : Upload SareHouse, Searching, Report ShareHouse, Reservate viewing, Payment  
-• 👫 Roommate : Understanding user's disposition through survey, Recommend roommate, Chat, Payment  
-• 📋 Mypage : Checking services (viewing reservation, roommate, payment), Withdrawal  
-• 📈 Administrator : Managing services (members, share houses, reports, income)  
+  • 📝 Member : Login/Logout, Register, Find ID/PWD, Update member information  
+  • 🏠 House : Upload SareHouse, Searching, Report ShareHouse, Reservate viewing, Payment  
+  • 👫 Roommate : Understanding user's disposition through survey, Recommend roommate, Chat, Payment  
+  • 📋 Mypage : Checking services (viewing reservation, roommate, payment), Withdrawal  
+  • 📈 Administrator : Managing services (members, share houses, reports, income)  
 
 <br>
 
@@ -36,8 +36,6 @@
 >'사'회 초년생들이 '다리' 쭉 뻗고 잘 수 있는 공간을 찾아주고 
 이어준다는 의미를 가진 저희 사다리 팀은 총 6명으로 구성되어 있습니다.  
 ```
-<br>
-
 >'Sadari' means ladder in Korean.  
 It contains the meaning of wanting to connect the young people and share houses.  
 And this is an abbreviation for Korean.
