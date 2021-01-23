@@ -206,7 +206,7 @@ public class MemberDao {
 		return result;
 	}
 
-	// 회원 정보 수정용 dao
+	// 일반회원 정보 수정용 dao
 	public int updateMember(Connection conn, User u) {
 		int result = 0;
 
@@ -232,6 +232,7 @@ public class MemberDao {
 		return result;
 	}
 
+	// Host회원 정보 수정용 dao
 	public int updateMember(Connection conn, Host h) {
 		int result = 0;
 		PreparedStatement pstmt = null;
