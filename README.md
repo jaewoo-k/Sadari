@@ -15,23 +15,27 @@
 <br>
 
 ### Functions 
-> 📝 회원관리 : 로그인, 회원가입, 아이디/비밀번호 찾기, 정보 수정  
-🏠 하우스 : 매물 업로드, 매물 검색, 허위 매물 신고, 하우스 뷰잉 예약, 결제  
-👫 룸메이트 : 설문을 통한 상용자의 성향 파악, 같은 성향의 사용자 추천, 찜하기, 신고, 채팅, 결제  
-📋 마이페이지 : 매물 뷰잉 예약 확인, 찜한 룸메 확인, 결제 내역 확인, 회원 탈퇴  
-📈 관리자 : 회원 관리, 매물 관리, 신고 관리, 수입 관리  
+```
+• 📝 회원관리 : 로그인, 회원가입, 아이디/비밀번호 찾기, 정보 수정  
+• 🏠 하우스 : 매물 업로드, 매물 검색, 허위 매물 신고, 하우스 뷰잉 예약, 결제  
+• 👫 룸메이트 : 설문을 통한 상용자의 성향 파악, 같은 성향의 사용자 추천, 찜하기, 신고, 채팅, 결제  
+• 📋 마이페이지 : 매물 뷰잉 예약 확인, 찜한 룸메 확인, 결제 내역 확인, 회원 탈퇴  
+• 📈 관리자 : 회원 관리, 매물 관리, 신고 관리, 수입 관리  
+```
 
-> 📝 Member : Login/Logout, Register, Find ID/PWD, Update member information  
-🏠 House : Upload SareHouse, Searching, Report ShareHouse, Reservate viewing, Payment  
-👫 Roommate : Understanding user's disposition through survey, Recommend roommate, Chat, Payment  
-📋 Mypage : Checking services (viewing reservation, roommate, payment), Withdrawal  
-📈 Administrator : Managing services (members, share houses, reports, income)  
+• 📝 Member : Login/Logout, Register, Find ID/PWD, Update member information  
+• 🏠 House : Upload SareHouse, Searching, Report ShareHouse, Reservate viewing, Payment  
+• 👫 Roommate : Understanding user's disposition through survey, Recommend roommate, Chat, Payment  
+• 📋 Mypage : Checking services (viewing reservation, roommate, payment), Withdrawal  
+• 📈 Administrator : Managing services (members, share houses, reports, income)  
 
 <br>
 
 ### We are Sadari
->'사'회 초년생들이 '다리' 쭉 뻗고 잘 수 있는 공간을 찾아주고 이어준다는 의미를 가진 저희 사다리 팀은 총 6명으로 구성되어 있습니다.  
-
+```
+>'사'회 초년생들이 '다리' 쭉 뻗고 잘 수 있는 공간을 찾아주고 
+이어준다는 의미를 가진 저희 사다리 팀은 총 6명으로 구성되어 있습니다.  
+```
 <br>
 
 >'Sadari' means ladder in Korean.  
