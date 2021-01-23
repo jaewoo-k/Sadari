@@ -38,4 +38,37 @@ public class ADM_MemberService {
 		close(conn);
 		return list;
 	}
+
+	
+	// 4.임대인 회원 복구시키기 메소드
+	public int combackHostMember(String mno) {
+		System.out.println("service 들어옴");
+		Connection conn = getConnection();
+		
+		int result = new ADM_MemberDao().comebackHostMember(conn, mno);
+		
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		System.out.println("service에서 servlet으로 주는 result");
+		return result;
+	}
+
+	// 5. 일반 회원 복구시키기 메소드
+	public int comebackUserMember(String mno) {
+		System.out.println("service 들어옴");
+		Connection conn = getConnection();
+		
+		int result = new ADM_MemberDao().comebackUserMember(conn, mno);
+		
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		System.out.println("service에서 servlet으로 주는 result");
+		return result;
+	}
 }

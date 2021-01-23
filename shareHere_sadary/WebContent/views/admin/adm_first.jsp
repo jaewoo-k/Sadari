@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Administrator</title>
+<script>
+	window.resizeTo(1100,724);
+</script>
 <style>
     /* 1366 X 1024 사이즈로 새로운 창으로 띄우기*/
     body{

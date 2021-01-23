@@ -100,6 +100,19 @@
 		  , 'Y'
 		)
 	</entry>
+	<entry key="loginAdmin">
+		 SELECT
+			  ADM_NUM
+			, ADM_ID
+			, ADM_PWD
+			, ADM_DEPART
+			
+		 FROM
+		 	  ADM_ADMIN
+		WHERE
+			  ADM_ID = ?
+		  AND ADM_PWD = ?
+	</entry>
 </properties>
 
 

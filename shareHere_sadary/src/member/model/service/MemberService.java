@@ -5,6 +5,7 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import administrator.model.vo.Admin;
 import administrator.model.vo.Usermember;
 import member.model.dao.MemberDao;
 import member.model.vo.Host;
@@ -58,5 +59,19 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	
+	/* 관리자 로그인 메소드 */
+	
+	public Admin loginMember(Admin adm) {
+		Connection conn = getConnection();
+		
+		
+		Admin loginAdmin = new MemberDao().loginMember(conn, adm);
+		//System.out.println("dao에서 받은 loginAdmin 값 : " + loginAdmin);
+		
+		close(conn);
+		return loginAdmin;
+	}
+
 
 }

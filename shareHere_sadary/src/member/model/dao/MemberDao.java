@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import administrator.model.vo.Admin;
 import member.model.vo.Host;
 import member.model.vo.User;
 
@@ -154,6 +155,38 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	/* 관리자 로그인 메소드 */
+
+	public Admin loginMember(Connection conn, Admin adm) {
+		Admin loginAdmin = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("loginAdmin");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, adm.getAdm_id());
+			pstmt.setString(2, adm.getAdm_pwd());
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				loginAdmin = new Admin(rset.getString("ADM_NUM"),
+									 rset.getString("ADM_ID"),
+									 rset.getString("ADM_PWD"),
+									 rset.getString("ADM_DEPART"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		//System.out.println("dao에서 service로 보내는 loginAdmin : " + loginAdmin);
+		return loginAdmin;
+
 	}
 	
 

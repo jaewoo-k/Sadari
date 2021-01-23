@@ -61,7 +61,6 @@ public class ADM_MemberDao {
 
 	// 2. 임대인회원 리스트 조회용 메소드
 	public ArrayList<Hostmember> selectHostList(Connection conn) {
-		//System.out.println("dao로 이동.");
 		ArrayList<Hostmember> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -77,7 +76,6 @@ public class ADM_MemberDao {
 										 	rset.getString("HST_ID"),
 										 	rset.getString("HST_BSNO"),
 											rset.getString("HST_BSNAME")));
-				//System.out.println("list 담기 성공");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,12 +91,9 @@ public class ADM_MemberDao {
 	public ArrayList<Outmember> selectOutList(Connection conn) {
 		ArrayList<Outmember> list = new ArrayList<Outmember>();
 		
-		//ArrayList<Hostmember> hlist = new ArrayList<>();
-		//ArrayList<Usermember> ulist = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectOutList");
-		System.out.println("dao 도착");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -106,9 +101,6 @@ public class ADM_MemberDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				
-				System.out.println(rset.getString("HST_ACT"));
-				System.out.println(rset.getString("US_ACT"));
 				
 				list.add(new Outmember(rset.getString("US_NO"),
 	 								   rset.getString("US_ID"),
@@ -122,8 +114,6 @@ public class ADM_MemberDao {
 						 			   rset.getString("HST_EMAIL"),
 						 			   rset.getString("HST_ACT"),
 									   rset.getDate("HST_STOP")));
-
-				System.out.println("list 담기 성공");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -133,6 +123,50 @@ public class ADM_MemberDao {
 		}
 		
 		return list;
+	}
+
+	// 4. 임대인 회원 복구 메소드
+	public int comebackHostMember(Connection conn, String mno) {
+		System.out.println("dao로 들어옴");
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("comebackHost");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setNString(1, mno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("dao에서 service으로 주는 result");
+		return result;
+	}
+
+	// 5. 일반 회원 복구 메소드
+	public int comebackUserMember(Connection conn, String mno) {
+		System.out.println("dao로 들어옴");
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("comebackUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setNString(1, mno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("dao에서 service으로 주는 result");
+		return result;
 	}
 
 }

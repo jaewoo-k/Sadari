@@ -207,7 +207,13 @@
             </div>
 
         </section>
-
+	<!--  관리자 페이지 로그인 -->
+	<div class="goToAdminLogin">관리자 로그인 하기.</div>
+	<script>
+		$('.goToAdminLogin').click(function(){
+			window.open("loginAdmin.jsp", "관리자 로그인", "width=500, height=300");
+		});
+	</script>
 
         <!-- footer -->
    <%@include file="/views/common/footer.jsp" %>
@@ -223,5 +229,7 @@
 					}
 				});
 			</script>
+			
+	
 </body>
 </html>

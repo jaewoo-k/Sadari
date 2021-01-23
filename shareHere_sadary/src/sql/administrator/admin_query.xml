@@ -58,4 +58,22 @@
 			US_STOP DESC
 		  , HST_STOP DESC
 	</entry>
+	
+	<entry key="comebackHost">
+	UPDATE 
+			HST_DB
+	SET
+			HST_ACT = 'Y'
+	WHERE
+			HST_NO = ?
+	</entry>
+	
+	<entry key="comebackUser">
+	UPDATE 
+			USER_DB
+	SET
+			US_ACT = 'Y'
+	WHERE
+			US_NO = ?
+	</entry>
 </properties>
