@@ -165,7 +165,7 @@ public class ADM_MemberDao {
 		} finally {
 			close(pstmt);
 		}
-		System.out.println("dao에서 service으로 주는 result");
+		System.out.println("dao에서 service으로 주는 result : " + result);
 		return result;
 	}
 

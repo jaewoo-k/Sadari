@@ -68,7 +68,7 @@ public class ADM_MemberService {
 		} else {
 			rollback(conn);
 		}
-		System.out.println("service에서 servlet으로 주는 result");
+		System.out.println("service에서 servlet으로 주는 result : " + result);
 		return result;
 	}
 }

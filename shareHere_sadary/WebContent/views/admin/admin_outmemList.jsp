@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, java.lang.Object, administrator.model.vo.*"%>
 <% ArrayList<Outmember> list = (ArrayList<Outmember>)request.getAttribute("list");
-   String admPwd = (String)request.getAttribute("admPwd");%>
+   String admPwd = (String)request.getAttribute("admPwd");
+   String twoList2 = (String)request.getAttribute("twoList2");
+   String[] twoList = new String[2];
+   if(twoList2 != null){
+   	twoList = twoList2.split(",");
+   }%>
    
 <!DOCTYPE html>
 <html lang="en">
@@ -14,44 +19,25 @@
      <link rel="preconnect" href="https://fonts.gstatic.com">
      <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-     <script>
-     	if(admPwd != null){
-     		<%for(int i=0; i<list.size(); i++){%>
-     			$(function(){ 			
-	    			$('#comeBackBtn<%=i%>').click(function(){
-	    				
-		    			
-	    				var no = $(this).parents("tr").children().eq(0).text();
-		    			var act = $(this).parents("tr").children().eq(4).text();
-		    			
-		    			console.log("no값 : " + no);
-		    			
-		    			var cb_check = confirm("회원 번호 : " + no + "\n 이 회원을 복구하시겠습니까?");
-		    			
-		    			if(cb_check == true){
-		    				location.href="<%= request.getContextPath()%>/comeback/checkpwd";
-		    				<% System.out.println("가져온 admPwd 값 = " + admPwd); %>
-		    				var checkPwd = prompt('관리자 비밀번호를 입력해주세요.');
+   
+   <% System.out.println("가져온 admPwd 값 = " + admPwd); %>
+   
+   <script>
+   <% if(admPwd != null){%>
+	   	console.log("if 안에 들어옴!");
+		var checkPwd = prompt('관리자 비밀번호를 입력해주세요.');
 		    				
-		    				if(checkPwd == admPwd){
-		    					location.href="<%= request.getContextPath()%>/comeback?mem_no="+no;
-		    				} else if(checkPwd != admPwd){
-		    					console.log("비밀번호 틀림");
-		    					alert("비밀번호가 틀렸습니다.");
-		    				} else if(checkPwd == null){
-		    					console.log("비밀번호 공백");
-		    					alert("비밀번호를 입력해 주세요.");
-		    				} else {
-		    					alert("취소되었습니다.");
-		    				}
-		    			}else if(cb_check == false){
-		    	        	alert("취소되었습니다.");
-		        		}
-	    			});
-	    		});
-     		<%}%>
-     	}
-	    </script>   
+		if(checkPwd == "<%=admPwd%>"){
+			location.href="<%= request.getContextPath()%>/comeback?mem_no="+'<%=twoList[0]%>';
+		} else if(checkPwd != "<%=admPwd%>"){
+		    alert("비밀번호가 틀렸습니다.");
+		} else if(checkPwd == null){
+		    alert("비밀번호를 입력해 주세요.");
+		} else {
+		    alert("취소되었습니다.");
+		}
+   <%}%>
+	</script>
     <style>
 	   body{
 		    margin: 0;
@@ -269,9 +255,7 @@
                 <th>탈퇴일</th>
                 <th>복구하기</th>
             </tr>
-            
-            <!-- <% System.out.println(list); %>
-            <% System.out.println(list.size()); %> -->
+           
             
             <% if(list.isEmpty()) { %>
             	<tr>
@@ -300,13 +284,40 @@
 				             <td><button class="comeBackBtn" id="comeBackBtn<%= i %>" type="button">복구하기</td>
 					     </tr>
 				       <% } %>
-			 
+			  		
+			  		<input type="hidden" name="list" id="sendList" value="<%= list %>">
            	 
            	 <%} 
             } %>
         </table>
     </div>
-    
+     <script>
+  
+     		<%for(int i=0; i<list.size(); i++){%>
+     			$(function(){ 			
+	    			$('#comeBackBtn<%=i%>').click(function(){
+		    			
+	    				var no = $(this).parents("tr").children().eq(0).text();
+		    			var act = $(this).parents("tr").children().eq(4).text();
+		    			
+		    			var twoList = new Array;
+		    			twoList[0] = no;
+		    			twoList[1] = act;
+		    			
+		    			var cb_check = confirm("회원 번호 : " + no + "\n 이 회원을 복구하시겠습니까?");
+		    			
+	    				if(cb_check == true){
+		    				location.href="<%= request.getContextPath()%>/comeback/checkpwd?twoList="+twoList;
+		    			} else if(cb_check == false){
+		    	        	alert("취소되었습니다.");
+		        		}
+	    			});
+	    		});
+     		<%}%>	    		
+	    </script>   
+	    
+	    
+	    
    
 
     <div class="bottomSearch">

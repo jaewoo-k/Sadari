@@ -122,9 +122,21 @@
             <br><br><br>
             <ul id="btnList"> 
                 
-                <li><button class="menuBtn" id="hostBtn" type="button">쉐어하우스 리스트</button></li>
-                <li><button class="menuBtn" id="outMemBtn" type="button">삭제된 매물보기</button></li>
+                <li><button class="menuBtn" id="shBtn" type="button">쉐어하우스 리스트</button></li>
+                <li><button class="menuBtn" id="delShBtn" type="button">삭제된 매물보기</button></li>
             </ul>
+            <script>
+            	const shBtn = document.getElementById('shBtn');
+            	shBtn.addEventListener('click', function(){
+            		location.href='<%=request.getContextPath()%>/sharehouse/list';
+            	});
+            	
+            	const delShBtn = document.getElementById('delShBtn');
+            	delShBtn.addEventListener('click', function(){
+            		location.href='<%=request.getContextPath()%>/hostmem/list';
+            	});
+
+            </script>
         </div>
     </div>
 

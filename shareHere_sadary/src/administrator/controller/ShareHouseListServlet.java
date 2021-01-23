@@ -9,23 +9,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import administrator.model.service.ADM_MemberService;
-import administrator.model.vo.Admin;
-import administrator.model.vo.Outmember;
+import administrator.model.service.ADM_SharehouseService;
+import administrator.model.vo.Sharehouse;
+import administrator.model.vo.Usermember;
 
 /**
- * Servlet implementation class OutmemberListServlet
+ * Servlet implementation class ShareHouseListServlet
  */
-@WebServlet("/outmem/list")
-public class OutmemberListServlet extends HttpServlet {
+@WebServlet("/sharehouse/list")
+public class ShareHouseListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OutmemberListServlet() {
+    public ShareHouseListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,16 +34,11 @@ public class OutmemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		HttpSession session = request.getSession();
-//		Admin loginAdm = (Admin)session.getAttribute("loginAdmin");
-//		String admPwd =loginAdm.getAdm_pwd();
+		ArrayList<Sharehouse> list = new ADM_SharehouseService().selectHouseList();
 		
-		ArrayList<Outmember> list = new ADM_MemberService().selectOutList();
-	
 		request.setAttribute("list", list);
-		//request.setAttribute("admPwd", admPwd);
 		
-		RequestDispatcher view = request.getRequestDispatcher("/views/admin/admin_outmemList.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/views/admin/adm_shareHouse.jsp");
 		view.forward(request, response);
 	}
 

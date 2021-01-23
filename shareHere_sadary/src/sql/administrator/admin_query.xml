@@ -76,4 +76,27 @@
 	WHERE
 			US_NO = ?
 	</entry>
+	<entry key="selectSharehouseList">
+	 	SELECT
+	 		SH_NO
+	 	  , SH_TITLE
+	 	  , SH_DATE
+	 	  , PAY_NO
+	 	  , SH_PERIOD
+	 	  , HST_NO
+	 	 FROM
+	 	 	(
+	 	 		SELECT *
+				FROM 
+					SH_INFO I
+				JOIN 
+					SH_PAY P 
+				ON 
+					I.PAY_NO = P.PAY_NO
+	 	 	)
+	 	 WHERE
+	 	 	SH_ACT = 'Y'
+	 	 ORDER BY
+	 	 	SH_NO DESC
+	</entry>
 </properties>
