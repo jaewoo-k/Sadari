@@ -88,7 +88,7 @@
         /* section, #wrap, #usr_updateForm{height: auto;} */
         #Mwrap{margin:0 auto; height: 800px; width: 1000px; margin-top:30px;}
         #wrap{ height: 700px; width: 1000px;}
-        form{height: 500px;}
+        #usr_updateForm{height: 500px;}
         #Lwrap{height:500px; width: 50%; float: left; display: flex; flex-direction: column; align-content:center}
         #Rwrap{height:450px; width: 50%; float: left; display: flex; flex-direction: column; align-content:center}
         #Lwrap div{display: flex; justify-content: space-between;}
@@ -115,23 +115,26 @@
     <section>
     
         <!-- 메뉴탭 코드 삽입 -->
+        <form name="deleteform" action="#" method="POST">
+        
         <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<%= request.getContextPath() %>/views/Mypage/mp_update.jsp">회원 정보 수정</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= request.getContextPath() %>/views/Mypage/mp_shReservation.jsp">예약한 방 정보</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= request.getContextPath() %>/views/Mypage/mp_rmJjimList.jsp">룸메이트 찜 목록</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="<%= request.getContextPath() %>/views/Mypage/mp_payList.jsp">결제내역 확인</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">회원탈퇴</a>
-        </li>
-      </ul>
+	        <li class="nav-item">
+	          <a class="nav-link active" aria-current="page" href="<%= request.getContextPath() %>/views/Mypage/mp_update.jsp">회원 정보 수정</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="<%= request.getContextPath() %>/views/Mypage/mp_shReservation.jsp">예약한 방 정보</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="<%= request.getContextPath() %>/views/Mypage/mp_rmJjimList.jsp">룸메이트 찜 목록</a>
+	        </li>
+	        <li class="nav-item">
+	            <a class="nav-link" href="<%= request.getContextPath() %>/views/Mypage/mp_payList.jsp">결제내역 확인</a>
+	        </li>
+	        <li class="nav-item">
+	            <a id="deleteBtn" class="nav-link" href="#">회원탈퇴</a>
+	        </li>
+	      </ul>
+        </form>
         <!-- 밑에 -->
         <div id="Mwrap">
 	        <h1>회원 정보 수정</h1>
@@ -309,6 +312,21 @@
 		back.addEventListener('click', function(){
 			location.href="<%= request.getContextPath() %>";
 		});
+		
+		// 탈퇴하기 버튼 클릭 이벤트
+		const deleteBtn = document.getElementById('deleteBtn');
+		deleteBtn.addEventListener('click', function(){
+			if(confirm("정말로 탈퇴하시겠습니까?")){
+				// GET 방식 요청
+				<%-- location.href="<%= request.getContextPath() %>/member/delete"; --%> 
+				
+				// 기존 form의 action 속성을 변경해서 submit
+				// 기존 form에 정의 된 방식으로 submit 되며, form 태그 안에 있는 모든 정보 submit
+				$("#deleteform").attr("action", "<%=request.getContextPath() %>/member/delete");
+				$("#deleteform").submit();
+			}
+		});
+		
 		function joinValidate(){
 // 			if(!(/^.+$/.test($("#bsname").val()))){
 // 				alert('상호명을 입력하세요.');

@@ -4,7 +4,7 @@
 	User loginUser = (User)session.getAttribute("loginUser");
 	Host loginHost = (Host)session.getAttribute("loginHost");
 	Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
-%>
+%> 
 <!DOCTYPE html>
 <html>
 <head>

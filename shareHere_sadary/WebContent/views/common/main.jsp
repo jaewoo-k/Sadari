@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Host"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -325,7 +325,6 @@
             logo.classList.toggle('change');
         });
     </script>
-
 <div id="searcharea">
     <div id="searchbar">
     <!-- 검색 폼 영역 -->
@@ -361,13 +360,13 @@
         <button type="submit" id="searchbutton">search</button>
     </form>
     </div>
-</div>
+</div> 
 <!-- 검색폼  -->
 <script>
 // 유효성 검사 추가 (필터 선택 시 그에 해당하는 조건 합치기)
 
 </script>
-
+<% if((Host)session.getAttribute("loginHost") == null){ %>
 <section class="popular-sharehouse">
     <h1 style="font-size: 35px;" id="popular">인기 쉐어하우스</h1>
     <div class="container">
@@ -478,6 +477,7 @@
     </div>
 
 </div>
+<% } %>
 </main>
 	
 	<script>
