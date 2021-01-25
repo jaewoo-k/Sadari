@@ -111,6 +111,22 @@ public class MemberService {
 		return result;
 	}
 	
+	// 회원 탈퇴용
+	public int deleteMember(String userId) {
+		Connection conn = getConnection();
+		int result = new MemberDao().deleteMember(conn, userId);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
 
 	
 	
