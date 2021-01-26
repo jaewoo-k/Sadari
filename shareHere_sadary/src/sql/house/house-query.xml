@@ -27,6 +27,7 @@
 		  , SH_STATUS
           , SH_DATE
           , PAY_NO
+          , HST_NO
 		)
 		VALUES
 		(
@@ -52,6 +53,7 @@
 		  , DEFAULT
           , SYSDATE
           , 'PY4'
+          , ?
 		)
 	</entry>
 	<entry key="insertPhoto">
@@ -109,6 +111,31 @@
           , 'SH' || SH.CURRVAL
           , ?
         )
+	</entry>
+	<entry key="selectInfo">
+	SELECT 
+              SH_NO
+            , SH_TITLE
+            , SH_TYPE
+            , SH_STR
+            , SH_AREA
+            , SH_ADDRESS
+            , SH_DATE
+            , PAY_NO
+            , HST_NO
+	FROM
+            SH_INFO
+	WHERE
+            SH_STATUS = 'Y'
+    ORDER BY HST_NO ASC
+	</entry>
+	<entry key="selectPay">
+		SELECT 
+              PAY_NO
+            , SH_PERIOD
+            , HST_NO
+		FROM 
+            SH_PAY
 	</entry>
 	<entry key="insertReport">
 		INSERT

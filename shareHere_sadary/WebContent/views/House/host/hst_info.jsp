@@ -31,11 +31,12 @@
 </style>
 </head>
 <body>
-<!--  페이지를 이동해도 Host_navi는 계속 상단에 노출되게끔 -->
-   <%@include file="/views/House/host/hst_navi.jsp" %>
+<!--  페이지를 이동해도 navi는 계속 상단에 노출되게끔 -->
+	<%@include file="/views/common/navi.jsp"%>
    
        <form action="<%= request.getContextPath()%>/hst/info" 
        method="post" class="formInfo" enctype="multipart/form-data">
+       <input type="hidden" name="hId" value="<%= loginHost.getHst_no() %>">
         <h2>하우스 소개</h2>
         <hr>
         <div class="info">
@@ -176,9 +177,9 @@
 					<input type="text" class="postcodify details" name="hAddress" style="width:80%" required>
 				</div>
 				<!-- 위도 -->
-				<input type="hidden" id="la" name="la">
+				<input type="text" id="la" name="la">
 				<!-- 경도 -->
-				<input type="hidden" id="lo" name="lo">
+				<input type="text" id="lo" name="lo">
 		
 			</span>
 			<span id="map"style="width: 400px; height: 300px; margin-top: 10px; display: none;"></span>

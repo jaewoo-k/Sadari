@@ -27,13 +27,13 @@ import house.model.vo.HostRoom;
  * Servlet implementation class hst_InfoServlet
  */
 @WebServlet("/hst/info")
-public class hst_InfoServlet extends HttpServlet {
+public class Hst_InfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public hst_InfoServlet() {
+    public Hst_InfoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -167,6 +167,8 @@ public class hst_InfoServlet extends HttpServlet {
 			String[] shCafeArr = multiRequest.getParameterValues("hCafe");
 			String[] shConArr = multiRequest.getParameterValues("hCon");
 			
+			String hstNo = multiRequest.getParameter("hId");
+			
 			String shPers = "";
 			String shComs = "";
 			String shSs = "";
@@ -202,8 +204,8 @@ public class hst_InfoServlet extends HttpServlet {
 			
 			HostInfo info = new HostInfo(shTitle, shType, shStr, shArea, shFloor, shIntro,
 					shPers, shComs, shSs, shAddress, shLa, shLo, shBank,
-					shMart, shParmacy, shSubway, shCafe, shStore);
-			//System.out.println("잘 넘어오는지 확인 : " + info);
+					shMart, shParmacy, shSubway, shCafe, shStore, hstNo);
+			System.out.println("잘 넘어오는지 확인 : " + info);
 			
 			// Room
 			ArrayList<HostRoom> RoomList = new ArrayList<>();
@@ -258,10 +260,10 @@ public class hst_InfoServlet extends HttpServlet {
 		    	hp.setShRImgPath("/resources/uploadRoomImg/");
 		    	
 		    	
-		    	System.out.println("size : " + p);
+		    	//System.out.println("size : " + p);
 		    	if(p >= 0){
-		    		System.out.println("P : " + p);
-		    		System.out.println("RoomOrigin.get(p) : " + roomOrigin.get(p));
+		    		//System.out.println("P : " + p);
+		    		//System.out.println("RoomOrigin.get(p) : " + roomOrigin.get(p));
 		    		hp.setShRImg(roomOrigin .get(p));
 		    		hp.setShRImgCh(roomChange.get(p));
 		    	}
@@ -279,7 +281,7 @@ public class hst_InfoServlet extends HttpServlet {
 			if(result > 0) {
 				// 하우스 정보로 요청
 				request.getSession().setAttribute("msg", "매물이 등록되었습니다.");
-				response.sendRedirect(request.getContextPath() + "/views/House/host/hst_confirm.jsp");
+				 response.sendRedirect(request.getContextPath() + "/hst/confirm");
 			}else {
 				// 실패 시 저장 된 사진 삭제
 				for(int i = 0; i < changeFiles.size(); i++) {
@@ -290,7 +292,7 @@ public class hst_InfoServlet extends HttpServlet {
 					failedFile.delete();
 				}
 				request.setAttribute("msg", "HOUSE 매물 등록에 실패하였습니다.");
-				request.getRequestDispatcher("/views/common/errorPageHost.jsp").forward(request, response);
+				request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
 			}
 			
 		}

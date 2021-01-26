@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import house.model.dao.HouseDao;
 import house.model.vo.HostInfo;
+import house.model.vo.HostPay;
 import house.model.vo.HostPhoto;
 import house.model.vo.HostRoom;
 import house.model.vo.HouseReport;
@@ -43,7 +44,7 @@ public class HouseService {
 		int resultPhoto = hd.insertInfo(conn, photoList);
 		int resultRoom = hd.insertInfoRoom(conn, roomList);
 		
-		if(resultInfo > 0 && resultPhoto == photoList.size()) {
+		if(resultInfo > 0 && resultPhoto == photoList.size() && resultRoom  == roomList.size()) {
 			commit(conn);
 		}else {
 			rollback(conn);
@@ -52,6 +53,29 @@ public class HouseService {
 		close(conn);
 		
 		return resultInfo;
+	}
+	
+	// 확인 조회
+	public ArrayList<HostInfo> selectInfo() {
+		Connection conn = getConnection();
+		
+		ArrayList<HostInfo> infoList = new HouseDao().selectInfo(conn);
+		
+		close(conn);
+		
+		return  infoList; 
+	}
+	
+	// 확인 페이지 결제 조회
+	public ArrayList<HostPay> selectpay() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<HostPay> payList = new HouseDao().selectPay(conn);
+		
+		close(conn);
+		
+		return  payList; 
 	}
 
 	// 신고하기 
@@ -68,7 +92,6 @@ public class HouseService {
 		
 		return result;
 	}
-
 
 
 }

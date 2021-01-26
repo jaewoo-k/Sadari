@@ -3,6 +3,7 @@
 <%
 	User loginUser = (User)session.getAttribute("loginUser");
 	Host loginHost = (Host)session.getAttribute("loginHost");
+	Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
 %>
 <!DOCTYPE html>
 <html>
@@ -26,6 +27,9 @@
 %>    
 </head>
 <body>
+<%-- 비로그인 상태 --%>
+			<% if((loginUser == null) && (loginHost == null) && (loginAdmin == null)){ %>
+<!-- 왼쪽네비바 -->
 <nav class="navibar">
             <ul class="nav_menu">
                 <li id="house">House</li>
@@ -38,9 +42,8 @@
             <div class="nav_logo">
                 <button id="navlogo" style="background-color: white; border: 0px;"><img src="${pageContext.request.contextPath}/views/common/img/naviLogo.png"></button>
             </div>
-
-<%-- 비로그인 상태 --%>
-			<% if((loginUser == null) && (loginHost == null)){ %>
+<!-- 왼쪽네비바 -->
+			
             <ul class="nav_buttons">
                 <li><button type="button" id="reBtn">Register</button></li>
                 <li><button type="button" onclick="location.href='<%= request.getContextPath() %>/views/Login/login_Nnavi.jsp'" id="lgBtn">Login</button></li>
@@ -62,6 +65,20 @@
             
 <!-- user로 로그인됐을때 -->
             <% }else if(loginUser != null){ %>
+<!-- 왼쪽네비바 -->
+			<nav class="navibar">
+            <ul class="nav_menu">
+                <li id="house">House</li>
+                <li id="rm">RoomMate</li>
+                <li id="au">About US</li>
+            </ul>
+
+            <hr class="line">
+
+            <div class="nav_logo">
+                <button id="navlogo" style="background-color: white; border: 0px;"><img src="${pageContext.request.contextPath}/views/common/img/naviLogo.png"></button>
+            </div>
+<!-- 왼쪽네비바 -->
             	<ul class="nav_buttons">
                 <li><button type="button" id="outBtn">Logout</button></li> 
 <!-- 마이페이지로 갈때, 비밀번호 입력하는 방법 고민해보기 -->
@@ -81,15 +98,78 @@
 			
 <!-- Host 로그인됐을때 -->
             <% }else if(loginHost != null){ %>
+<!-- 왼쪽네비바 -->
+			<nav class="navibar">
+            <ul class="nav_menu">
+                <li id="info">House 등록</li>
+                <li id="confirm">House 확인</li>
+            </ul>
+            
+            <script>
+	            // info 페이지 이동
+	            const infoBtn = document.getElementById("info");
+	            infoBtn.addEventListener("click", function(){
+	            	location.href='<%= request.getContextPath()%>/views/House/host/hst_pay.jsp ';
+	            });
+	            
+	            // confirm페이지 이동
+	            const confirmBtn = document.getElementById("confirm");
+	            confirmBtn.addEventListener("click", function(){
+	            	location.href='<%= request.getContextPath()%>/hst/confirm';
+	            });
+            </script>
+
+            <hr class="line">
+
+            <div class="nav_logo">
+                <button id="navlogo" style="background-color: white; border: 0px;"><img src="${pageContext.request.contextPath}/views/common/img/naviLogo.png"></button>
+            </div>
+<!-- 왼쪽네비바 -->
             <ul class="nav_buttons">
                 <li><button type="button" id="outBtn">Logout</button></li> 
 <!-- 마이페이지로 갈때, 비밀번호 입력하는 방법 고민해보기 -->
-                <li><a style="text-decoration: none; color: black;" id="user_name" href="<%=request.getContextPath()%>/views/Mypage/mp_update.jsp"><%= loginHost.getHst_name() %>님 환영합니다.</a></li>
+                <li><a style="text-decoration: none; color: black;" id="user_name" href="<%=request.getContextPath()%>/views/Mypage/mp_update.jsp"><%-- 주소 바꾸세요 필요하신걸로!--%><%= loginHost.getHst_name() %>님 환영합니다.</a></li>
             </ul>
             
             <a href="#" class="navibar_toggleBtn" style="width: 5%;">
                 <img src="./main_img/bars-solid.svg" style="width: 100%;">
             </a>
+<!-- 버튼액션 -->
+            <script>
+            const outBtn = document.getElementById('outBtn');	//로그아웃
+        	outBtn.addEventListener('click',function(){
+        		location.href='<%= request.getContextPath() %>/member/logout';
+        	});
+            </script>
+            
+            
+            <%}else if(loginAdmin != null){ %>
+<!-- 관리자 로그인됐을때 -->
+<!-- 왼쪽네비바 -->
+			<nav class="navibar">
+            <ul class="nav_menu">
+                <li id="house">메뉴 1(수정요망)</li>
+                <li id="rm">메뉴 2(수정요망)</li>
+                <li id="au">메뉴 3(수정요망)</li>
+            </ul>
+
+            <hr class="line">
+
+            <div class="nav_logo">
+                <button id="navlogo" style="background-color: white; border: 0px;"><img src="${pageContext.request.contextPath}/views/common/img/naviLogo.png"></button>
+            </div>
+<!-- 왼쪽네비바 -->
+
+            <ul class="nav_buttons">
+                <li><button type="button" id="outBtn">Logout</button></li> 
+<!-- 이름 클릭했을때 주소 입력해주시고, 버튼으로 바꾸셔도되고 배치는 하고싶은거 넣으시면돼요 -->
+                <li><a style="text-decoration: none; color: black;" id="user_name" href="<%=request.getContextPath()%><%-- 여기에 이동하고싶은거 넣으세용--%>"><%= loginAdmin.getAdm_id() %>님 환영합니다.</a></li>
+            </ul>
+            
+            <a href="#" class="navibar_toggleBtn" style="width: 5%;">
+                <img src="./main_img/bars-solid.svg" style="width: 100%;">
+            </a>
+<!-- 버튼액션 -->
             <script>
             const outBtn = document.getElementById('outBtn');	//로그아웃
         	outBtn.addEventListener('click',function(){
@@ -124,8 +204,7 @@
      const aboutUsBtn = document.getElementById("au");
      aboutUsBtn.addEventListener("click", function(){
        location.href='<%= request.getContextPath()%>/views/common/aboutus.jsp ';
-    });
-    
+    }); 
     </script>
 </body>
 </html>

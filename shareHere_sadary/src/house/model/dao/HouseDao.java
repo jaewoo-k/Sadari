@@ -6,11 +6,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import house.model.vo.HostInfo;
+import house.model.vo.HostPay;
 import house.model.vo.HostPhoto;
 import house.model.vo.HostRoom;
 import house.model.vo.HouseReport;
@@ -56,6 +58,7 @@ public class HouseDao {
 			pstmt.setString(16, info.getShSubway());
 			pstmt.setString(17, info.getShCafe());
 			pstmt.setString(18, info.getShStore());
+			pstmt.setString(19, info.getHstNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -96,7 +99,7 @@ public class HouseDao {
 		return result;
 	}
 	
-
+	// HostInsert Room
 	public int insertInfoRoom(Connection conn, ArrayList<HostRoom> roomList) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -131,7 +134,70 @@ public class HouseDao {
 		
 		return result;
 	}
+	
+	public ArrayList<HostInfo> selectInfo(Connection conn) {
+		ArrayList<HostInfo> infoList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet  rset = null;
+		String sql = prop.getProperty("selectInfo"); 
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				infoList.add(new HostInfo(rset.getString("SH_NO"),
+										  rset.getString("SH_TITLE"),
+										  rset.getString("SH_TYPE"),
+										  rset.getString("SH_STR"),
+										  rset.getString("SH_AREA"),
+										  rset.getString("SH_ADDRESS"),
+										  rset.getDate("SH_DATE"),
+										  rset.getString("PAY_NO"),
+										  rset.getString("HST_NO")
+										  ));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return infoList;
+	}
 
+	// 확인페이지 결제
+	public ArrayList<HostPay> selectPay(Connection conn) {
+		ArrayList<HostPay> payList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet  rset = null;
+		String sql = prop.getProperty("selectPay"); 
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				payList.add(new HostPay(rset.getString("PAY_NO"),
+										  rset.getString("SH_PERIOD"),
+										  rset.getString("HST_NO")));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return payList;
+	}
 
 	// 신고하기 
 	public int insertReport(Connection conn, HouseReport r) {
@@ -154,6 +220,9 @@ public class HouseDao {
 
 		return result;
 	}
+
+
+
 
 
 }
