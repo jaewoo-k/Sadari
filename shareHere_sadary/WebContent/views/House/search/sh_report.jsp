@@ -179,4 +179,5 @@ function validate(){
 	<%@include file="/views/common/footer.jsp"%>
 </body>
 <!-- 변수명 DB와 일치시키기, 신고 폼 value값 넣기, 상단 네비 수정 및 버튼 클릭이벤트 기능 넣기, 후에 디자인 상의 후 수정 -->
+
 </html>

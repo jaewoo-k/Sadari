@@ -10,7 +10,7 @@
 <!-- Bootstrap core CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <!-- css 경로 -->
-<link href="${pageContext.request.contextPath}/views/House/host/hst_info.css" rel="stylesheet" type="text/css">
+<link href="./hst_info.css" rel="stylesheet" type="text/css">
  <!-- navi css 경로 -->
 <link href ="${pageContext.request.contextPath}/views/common/nav_foot.css" rel="stylesheet" type="text/css">
 <style>
@@ -24,19 +24,14 @@
 	width: 100%;
 	float: left;
 }
-#roomInfo1, #roomInfo2 {
-   width: auto;
-   height: auto;
-}
 </style>
 </head>
 <body>
-<!--  페이지를 이동해도 navi는 계속 상단에 노출되게끔 -->
-	<%@include file="/views/common/navi.jsp"%>
+<!--  페이지를 이동해도 Host_navi는 계속 상단에 노출되게끔 -->
+   <%@include file="/views/House/host/hst_navi.jsp" %>
    
        <form action="<%= request.getContextPath()%>/hst/info" 
        method="post" class="formInfo" enctype="multipart/form-data">
-       <input type="hidden" name="hId" value="<%= loginHost.getHst_no() %>">
         <h2>하우스 소개</h2>
         <hr>
         <div class="info">
@@ -101,10 +96,9 @@
             <textarea name="hIntro" id="ta" cols="30" rows="5" style="text-align: left; resize:none;" maxlength="500"
             placeholder="쉐어하우스에 대해 자세히 500자 내로 작성해주세요. &#13;&#10;입주신청자들이 투어 신청시 착오발생 하지 않도록 최대한 기재해주세요!'" required></textarea>
         </div>
-        
+
         <!-- 방 정보 -->
         <div class="roomInfo">
-        	<%@include file="/views/House/host/hst_info_room.jsp" %>
         </div>
 
         <!-- 시설 및 서비스 -->
@@ -177,9 +171,9 @@
 					<input type="text" class="postcodify details" name="hAddress" style="width:80%" required>
 				</div>
 				<!-- 위도 -->
-				<input type="text" id="la" name="la">
+				<input type="hidden" id="la" name="la">
 				<!-- 경도 -->
-				<input type="text" id="lo" name="lo">
+				<input type="hidden" id="lo" name="lo">
 		
 			</span>
 			<span id="map"style="width: 400px; height: 300px; margin-top: 10px; display: none;"></span>
@@ -208,55 +202,52 @@
 
 				function sample5_execDaumPostcode() {
 					new daum.Postcode(
-	
-					{
-						oncomplete : function(data) {
-							var addr = data.address; // 최종 주소 변수
-	
-							// 주소 정보를 해당 필드에 넣는다.
-							document.getElementById("sample5_address").value = addr;
-							// 주소로 상세 정보를 검색
-							geocoder
-									.addressSearch(
-											data.address,
-											function(results, status) {
-												// 정상적으로 검색이 완료됐으면
-												if (status === daum.maps.services.Status.OK) {
-	
-													var result = results[0]; //첫번째 결과의 값을 활용
-	
-													// 해당 주소에 대한 좌표를 받아서
-													var coords = new daum.maps.LatLng(
-															result.y,
-															result.x);
-	
-													// 위도 경도 input에 넣기
-													var la = result.y;
-													var lo = result.x;
-													document
-															.getElementById("la").value = la;
-													document
-															.getElementById("lo").value = lo;
-	
-													// 지도를 보여준다.
-													mapContainer.style.display = "block";
-													map.relayout();
-													// 지도 중심을 변경한다.
-													map
-															.setCenter(coords);
-													// 마커를 결과값으로 받은 위치로 옮긴다.
-													marker
-															.setPosition(coords)
-												}
-											});
-						}
-					}).open();
+							{
+								oncomplete : function(data) {
+									var addr = data.address; // 최종 주소 변수
+
+									// 주소 정보를 해당 필드에 넣는다.
+									document.getElementById("sample5_address").value = addr;
+									// 주소로 상세 정보를 검색
+									geocoder
+											.addressSearch(
+													data.address,
+													function(results, status) {
+														// 정상적으로 검색이 완료됐으면
+														if (status === daum.maps.services.Status.OK) {
+
+															var result = results[0]; //첫번째 결과의 값을 활용
+
+															// 해당 주소에 대한 좌표를 받아서
+															var coords = new daum.maps.LatLng(
+																	result.y,
+																	result.x);
+															
+															// 위도 경도 input에 넣기
+															var la = result.y;
+															var lo = result.x;
+															document.getElementById("la").value = la;
+															document.getElementById("lo").value = lo;
+															
+															// 지도를 보여준다.
+															mapContainer.style.display = "block";
+															map.relayout();
+															// 지도 중심을 변경한다.
+															map
+																	.setCenter(coords);
+															// 마커를 결과값으로 받은 위치로 옮긴다.
+															marker
+																	.setPosition(coords)
+														}
+													});
+								}
+							}).open();
 				}
 			</script>
 		</div>
 
         <!-- 정보 -->
-        <div class="house inform" style="padding-top: 7%;">
+        <div class="house inform" style="padding-top: 27%;">
             <h2>정보</h2>
             <hr>
             <br>

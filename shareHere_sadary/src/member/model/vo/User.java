@@ -30,7 +30,7 @@ public class User  {
 	
 	
 	
-	// 로그인
+	
 	public User(String userId, String userPwd) {
 		super();
 		this.userId = userId;
@@ -39,30 +39,7 @@ public class User  {
 
 
 
-	// 미사용
-//	public User(String userPwd, String userName, String userEmail, String userPhone) {
-//		super();
-//		this.userName = userName;
-//		this.userPwd = userPwd;
-//		this.userEmail = userEmail;
-//		this.userPhone = userPhone;
-//	}
 
-
-
-
-	// 마이페이지 수정 UpdateMemberServlet
-	public User(String userId, String userName, String userPwd, String userEmail, String userPhone) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.userPwd = userPwd;
-		this.userEmail = userEmail;
-		this.userPhone = userPhone;
-	}
-
-
-	// 회원가입 값입력서블릿
 	public User(String userId, String userPwd, String userName, Date userBirth, String userGender, String userEmail,
 			String userPhone) {
 		super();
@@ -77,7 +54,7 @@ public class User  {
 
 
 
-	// 로그인 dao
+
 	public User(String userNo, String userId, String userPwd, String userName, Date userBirth, String userGender,
 			String userEmail, String userPhone, String userAct, Date userStop) {
 		super();

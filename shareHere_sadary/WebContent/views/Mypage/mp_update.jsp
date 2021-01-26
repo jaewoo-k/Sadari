@@ -4,6 +4,10 @@
 	User u = (User)session.getAttribute("loginUser");
 	Host h = (Host)session.getAttribute("loginHost");
 	
+	String gender = (u.getUserGender().charAt(0) == 'M') ? "남자" : "여자";
+	
+// 	String email = (u.getUserEmail() != null) ? u.getUserEmail() : "";
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -88,13 +92,14 @@
         /* section, #wrap, #usr_updateForm{height: auto;} */
         #Mwrap{margin:0 auto; height: 800px; width: 1000px; margin-top:30px;}
         #wrap{ height: 700px; width: 1000px;}
-        #usr_updateForm{height: 500px;}
+        form{height: 500px;}
         #Lwrap{height:500px; width: 50%; float: left; display: flex; flex-direction: column; align-content:center}
         #Rwrap{height:450px; width: 50%; float: left; display: flex; flex-direction: column; align-content:center}
         #Lwrap div{display: flex; justify-content: space-between;}
         #Rwrap div{display: flex; justify-content: space-between;}
-        .join_title{margin: 10px 0 10px 0;flex-basis: 35%;}.join_title ~input{flex-basis: 63%;}
+        .join_title{flex-basis: 35%;}.join_title ~input{flex-basis: 63%;}
         #wrap{padding : 20px;border: 3px solid rgb(196, 196, 196); height: auto;}
+        .join_title{margin: 10px 0 10px 0;}
         /* #back{margin-left: 130px;} */
         #back{margin-left: 15px;}
         #back,#modify{float:right; background-color: black;color : white;border-radius : 7px;font-size:medium;width: 130px;height : 30px;}
@@ -115,45 +120,36 @@
     <section>
     
         <!-- 메뉴탭 코드 삽입 -->
-        <form name="deleteform" action="#" method="POST">
-        
         <ul class="nav nav-tabs">
-	        <li class="nav-item">
-	          <a class="nav-link active" aria-current="page" href="<%= request.getContextPath() %>/views/Mypage/mp_update.jsp">회원 정보 수정</a>
-	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link" href="<%= request.getContextPath() %>/views/Mypage/mp_shReservation.jsp">예약한 방 정보</a>
-	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link" href="<%= request.getContextPath() %>/views/Mypage/mp_rmJjimList.jsp">룸메이트 찜 목록</a>
-	        </li>
-	        <li class="nav-item">
-	            <a class="nav-link" href="<%= request.getContextPath() %>/views/Mypage/mp_payList.jsp">결제내역 확인</a>
-	        </li>
-	        <li class="nav-item">
-	            <a id="deleteBtn" class="nav-link" href="#">회원탈퇴</a>
-	        </li>
-	      </ul>
-        </form>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">회원 정보 수정</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">예약한 방 정보</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">룸메이트 찜 목록</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">결제내역 확인</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">회원탈퇴</a>
+        </li>
+      </ul>
         <!-- 밑에 -->
         <div id="Mwrap">
 	        <h1>회원 정보 수정</h1>
 	        <div id="wrap"> 
 	        	<!-- 코드추가 -->
-<!-- 일반회원 -->
-<% if(loginUser != null){ %>
 	            <h2><%= u.getUserName() %> 님의 정보입니다.</h2>
-	            <form name="usr_updateForm" id="update_user" method="POST"
-            action="<%= request.getContextPath() %>/member/update" onsubmit="return joinValidate();">
+	            <form id="usr_updateForm">
 	                <div id="Lwrap">
-	                	<input type="hidden" name="user_no" value="<%= u.getUserNo() %>">
-	                	<input type="hidden" name="user_id" value="<%= u.getUserId() %>">
-	                    <div><h4 class="join_title">이름 : </h4><input type="text" maxlength="5" name="us_name" id="name" value="<%= u.getUserName() %>"></div>
+	                    <div><h4 class="join_title">이름 : </h4><input type="text" maxlength="5" name=us_name id="name" value="<%= u.getUserName() %>"></div>
 	                    <span id="nameresult">&nbsp;</span>
-<%-- 	                    <div><h4 class='join_title'>성별 : </h4><input type="text" value="<%= gender %>" id="gender" readonly></div> --%>
-	                    <div><h4 class='join_title'>성별 : </h4><input type="text" value="<%= (u.getUserGender().charAt(0) == 'M') ? "남자" : "여자" %>" id="gender" readonly></div>
+	                    <div><h4 class='join_title'>성별 : </h4><input type="text" value="<%= gender %>" id="gender" readonly></div>
 	                    <span>&nbsp;</span>
-	                    <div><h4 class='join_title'>비밀번호 : </h4><input type="password" name="us_pwd" id="pwd" value="<%= u.getUserPwd()%>"></div>
+	                    <div><h4 class='join_title'>비밀번호 : </h4><input type="password" id="pwd" value="<%= u.getUserPwd()%>"></div>
 	                    <span id="pwdresult">&nbsp;</span>
 	                    <div><h4 class='join_title'>비밀번호 확인 : </h4><input type="password" id="pwd2" value="<%= u.getUserPwd()%>"></div>
 	                    <span id="pwd2result">&nbsp;</span>
@@ -161,65 +157,18 @@
 	                <div id="Rwrap">
 	                    <div>&nbsp;&nbsp;<h4 class='join_title'>생년월일 : </h4><input type="text" id="birth" readonly value="<%= u.getUserBirth()%>"></div>
 	                    <span id="birthresult">&nbsp;</span>
-	                    <div>&nbsp;&nbsp;<h4 class='join_title'>이메일 : </h4><input type="email" name="us_email" id="email" value="<%= u.getUserEmail()%>"></div>
+	                    <div>&nbsp;&nbsp;<h4 class='join_title'>이메일 : </h4><input type="email" id="email" value="<%= u.getUserEmail()%>"></div>
 	                    <span id="emailresult">&nbsp;</span>
-	                    <div>&nbsp;&nbsp;<h4 class='join_title'>휴대전화 : </h4><input type="tel" name="us_phone" id="phone" value="<%= u.getUserPhone() %>"></div>
+	                    <div>&nbsp;&nbsp;<h4 class='join_title'>휴대전화 : </h4><input type="tel" id="phone" value="<%= u.getUserPhone() %>"></div>
 	                    <span id="phoneresult">&nbsp;</span>
 	                </div>
-<!-- 호스트 회원 -->
-<% }else if(loginHost != null){ %>	                
-				<h2><%= h.getHst_name() %> 님의 정보입니다.</h2>
-	            <form name="usr_updateForm" id="update_host" method="POST"
-            action="<%= request.getContextPath() %>/member/update" onsubmit="return joinValidate();">
-	                <div id="Lwrap">
-	                	<input type="hidden" name="user_no" value="<%= h.getHst_no() %>">
-	                	<input type="hidden" name="user_id" value="<%= h.getHst_id() %>">
-		                <div><h4 class="join_title">사업자번호(-없이) : </h4><input type="text" id="bsnum" name="bsnum" value="<%= h.getHst_bsno() %>" readonly></div>
-		                <span id="bsnumresult">&nbsp;</span>
-	                    <div><h4 class="join_title">이름 : </h4><input type="text" maxlength="5" name="us_name" id="name" value="<%= h.getHst_name() %>"></div>
-	                    <span id="nameresult">&nbsp;</span>
-	                    <div><h4 class='join_title'>성별 : </h4><input type="text" value="<%= (h.getHst_gender().charAt(0) == 'M') ? "남자" : "여자" %>" id="gender" readonly></div>
-	                    <span>&nbsp;</span>
-	                    <div><h4 class='join_title'>비밀번호 : </h4><input type="password" name="us_pwd" id="pwd" value="<%= h.getHst_pwd()%>"></div>
-	                    <span id="pwdresult">&nbsp;</span>
-	                    <div><h4 class='join_title'>비밀번호 확인 : </h4><input type="password" id="pwd2" value="<%= h.getHst_pwd()%>"></div>
-	                    <span id="pwd2result">&nbsp;</span>
-	                </div>
-	                <div id="Rwrap">
-	                	<div>&nbsp;&nbsp;<h4 class="join_title">상호명 : </h4><input type="text" id="bsname" name="bsname" value="<%= h.getHst_bsname() %>" readonly></div>
-	                    <span id="bsnameresult">&nbsp;</span>
-	                    <div>&nbsp;&nbsp;<h4 class='join_title'>생년월일 : </h4><input type="text" id="birth" readonly value="<%= h.getHst_birth()%>"></div>
-	                    <span id="birthresult">&nbsp;</span>
-	                    <div>&nbsp;&nbsp;<h4 class='join_title'>이메일 : </h4><input type="email" name="us_email" id="email" value="<%= h.getHst_email()%>"></div>
-	                    <span id="emailresult">&nbsp;</span>
-	                    <div>&nbsp;&nbsp;<h4 class='join_title'>휴대전화 : </h4><input type="tel" name="us_phone" id="phone" value="<%= h.getHst_phone() %>"></div>
-	                    <span id="phoneresult">&nbsp;</span>
-	                </div>
-<%} %>	                    
+	                    
+	                    
 	                    
 	                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                <button id="back" onsubmit="history goBack()">뒤로가기</button>
+	                <button id="back">뒤로가기</button>
 	                <button id="modify">수정하기</button>
 					<script>
-                    $(function () {
-                    	$("#bsnum").change(function(){
-                    		var regbsnum = /^[0-9]{10}$/;	
-                    		if(!regbsnum.test($(this).val())){
-                    			$("#bsnumresult").html("10자리 숫자만 입력하세요").css("color", "red");
-                    		}else{
-                    			 $("#bsnumresult").html("정상 입력").css("color", "green");
-                    		}
-                    	});
-                    	
-                    	$("#bsname").change(function(){
-                    		// 빈값 못오게
-                    		var regbsnum = /^.+$/;	
-                    		if(!regbsnum.test($(this).val())){
-                    			$("#bsnameresult").html("상호명을 입력해주세요.").css("color", "red");
-                    		}else{
-                    			 $("#bsnameresult").html("입력 완료").css("color", "green");
-                    		}
-                    	});
                         $("#name").change(function () {
                             var regname = /^[가-힣]{2,5}$/;     //2~5글자의 한글 이름
                             if (regname.test($(this).val())) {
@@ -303,71 +252,11 @@
 				</form>
 	
 	            <!-- 유효성 피드백 -->
+	            
+	            
 	        </div>
         </div>
     </section>
-    <script>
-    // 뒤로가기 버튼
-		const back = document.getElementById('back');
-		back.addEventListener('click', function(){
-			location.href="<%= request.getContextPath() %>";
-		});
-		
-		// 탈퇴하기 버튼 클릭 이벤트
-		const deleteBtn = document.getElementById('deleteBtn');
-		deleteBtn.addEventListener('click', function(){
-			if(confirm("정말로 탈퇴하시겠습니까?")){
-				// GET 방식 요청
-				<%-- location.href="<%= request.getContextPath() %>/member/delete"; --%> 
-				
-				// 기존 form의 action 속성을 변경해서 submit
-				// 기존 form에 정의 된 방식으로 submit 되며, form 태그 안에 있는 모든 정보 submit
-				$("#deleteform").attr("action", "<%=request.getContextPath() %>/member/delete");
-				$("#deleteform").submit();
-			}
-		});
-		
-		function joinValidate(){
-// 			if(!(/^.+$/.test($("#bsname").val()))){
-// 				alert('상호명을 입력하세요.');
-// 				$("#bsname").select();
-// 				return false;
-// 			}
-			
-// 			if(!(/^[0-9]{10}$/).test($("#bsnum").val())){
-// 				alert('사업자번호는 -를 제외한 숫자 10자리 입력');
-// 				$("#bsnum").select();
-// 				return false;
-// 			}
-			
-			if(!(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,16}/.test($("#pwd").val()))){
-				alert('비밀번호는 영어대소문자,숫자,특수문자를 포함한 8자리~16자리로 설정해 주세요.');
-				$("#pwd").select();
-				return false;
-			}
-			if($("#pwd2").val() != $("#pwd").val()){
-				alert('비밀번호가 일치하지 않습니다.');
-				$("#pwd2").select();
-				return false;
-			}
-			if(!(/^[가-힣]{2,5}$/).test($("#name").val())){
-				alert('이름은 한글 2~5글자 사이만 가능');
-				$("#name").select();
-				return false;
-			}
-			if(!((/^[a-z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i).test($("#email").val()))){
-				alert('이메일주소를 확인해주세요.');
-				$("#email").select();
-				return false;
-			}
-			if(!(/^010\D?\d{4}\D?\d{4}$|^01[16789]\D?\d{3}\D?\d{4}$/).test($("#phone").val())){
-				alert('휴대전화번호를 확인해주세요.');
-				$("#phone").select();
-				return false;
-			}
-			return true;
-		}
-	</script>
         <!--  페이지를 이동해도 footer는 계속 상단에 노출되게끔 -->
    <%@include file="/views/common/footer.jsp" %>
 </body>

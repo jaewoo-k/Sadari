@@ -53,7 +53,7 @@ a{
     float : right;
 }
 
-#lgBtn, #reBtn, #outBtn{
+#lgBtn, #reBtn{
     background-color: black;
     color : white;
     border-radius : 7px;
@@ -70,11 +70,6 @@ a{
 }
 
 #reBtn:hover{
-    background-color: white;
-    color : black;
-}
-
-#outBtn:hover{
     background-color: white;
     color : black;
 }

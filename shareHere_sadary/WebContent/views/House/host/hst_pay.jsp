@@ -33,8 +33,8 @@
     </style>
 </head>
 <body>
-	<!--  페이지를 이동해도 navi는 계속 상단에 노출되게끔 -->
-	<%@include file="/views/common/navi.jsp"%>
+<!--  페이지를 이동해도 Host_navi는 계속 상단에 노출되게끔 -->
+   <%@include file="/views/House/host/hst_navi.jsp" %>
 	<br><br><br>
 <!-- 결제 폼 -->
  <div class="pay">

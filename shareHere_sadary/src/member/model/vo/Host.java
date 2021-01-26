@@ -33,13 +33,13 @@ public class Host  {
 	
 	public Host() {}
 
-	// 로그인 서블릿
+
 	public Host(String hst_id, String hst_pwd) {
 		super();
 		this.hst_id = hst_id;
 		this.hst_pwd = hst_pwd;
 	}
-	// 유저 id로 회원 한명 조회용dao(회원가입)
+
 	public Host(String hst_id, String hst_pwd, String hst_name, Date hst_birth, String hst_gender, String hst_email,
 			String hst_phone, String hst_bsno, String hst_bsname) {
 		super();
@@ -54,20 +54,7 @@ public class Host  {
 		this.hst_bsname = hst_bsname;
 	}
 
-	// 마이페이지 수정용 
-	public Host(String hst_bsno, String hst_bsname, String hst_id, String hst_pwd, String hst_name, String hst_email, String hst_phone) {
-		super();
-		this.hst_bsno = hst_bsno;
-		this.hst_bsname = hst_bsname;
-		
-		this.hst_id = hst_id;
-		this.hst_pwd = hst_pwd;
-		this.hst_name = hst_name;
-		this.hst_email = hst_email;
-		this.hst_phone = hst_phone;
-	}
-	
-	// 로그인dao
+
 	public Host(String hst_no, String hst_id, String hst_pwd, String hst_name, Date hst_birth, String hst_gender,
 			String hst_email, String hst_phone, String hst_bsno, String hst_bsname, String hst_act, Date hst_stop) {
 		super();
@@ -85,18 +72,21 @@ public class Host  {
 		this.hst_stop = hst_stop;
 	}
 
-// 일단 지워버림 ㅎㅎ; 어디서 오류가 날까요
-//	public Host(String hst_no, String hst_id, String hst_name, String hst_bsno, String hst_bsname) {
-//		super();
-//		this.hst_no = hst_no;
-//		this.hst_id = hst_id;
-//		this.hst_name = hst_name;
-//		this.hst_bsno = hst_bsno;
-//		this.hst_bsname = hst_bsname;
-//	}
-
 
 	
+
+
+
+
+	public Host(String hst_no, String hst_id, String hst_name, String hst_bsno, String hst_bsname) {
+		super();
+		this.hst_no = hst_no;
+		this.hst_id = hst_id;
+		this.hst_name = hst_name;
+		this.hst_bsno = hst_bsno;
+		this.hst_bsname = hst_bsname;
+	}
+
 
 	public String getHst_no() {
 		return hst_no;

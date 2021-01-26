@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, house.model.vo.HostInfo, house.model.vo.HostPay"%>
-<%
-	ArrayList<HostInfo> infoList = (ArrayList<HostInfo>)request.getAttribute("hostInfo");
-
-%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,8 +46,8 @@
 </head>
 <body>
 
-<!--  페이지를 이동해도 navi는 계속 상단에 노출되게끔 -->
-	<%@include file="/views/common/navi.jsp"%>
+	<!--  페이지를 이동해도 Host_navi는 계속 상단에 노출되게끔 -->
+   <%@include file="/views/House/host/hst_navi.jsp" %>
 	
     <div class="hst_table">
     <h2>HOST 하우스 확인</h2>
@@ -60,55 +56,62 @@
             <tr class="table-dark">
                 <th scope="col">#</th>
                 <th scope="col">house Name</th>
-                <th scope="col">주택유형</th>
-                <th scope="col">주택구조</th>
-                <th scope="col">건물면적</th>
-                <th scope="col">주소</th>
-                <th scope="col">마감날짜</th>
+                <th scope="col">성별</th>
+                <th scope="col">타입</th>
+                <th scope="col">면적</th>
+                <th scope="col">보증금</th>
+                <th scope="col">월세</th>
+                <th scope="col">입주날짜</th>
                 <th scope="col">수정하기</th>
                 <th scope="col">삭제하기</th>
             </tr>
             </thead>
             <tbody>
-			<% if(infoList != null && !infoList.isEmpty()){ %>
-               <% for(HostInfo h : infoList) { %>
-               	<% if(h.getHstNo().equals(loginHost.getHst_no())) { %>
-                     <tr>
-                        <th><%= h.getShNo() %></th>
-                        <td><%= h.getShTitle() %></td>
-                        <td><%= h.getShType() %></td>
-                        <td><%= h.getShStr() %></td>
-                        <td><%= h.getShArea() %></td>
-                        <td><%= h.getShAddress() %></td>
-                        <td><%= h.getShDate() %></td>
-                        <td>
-                          <button id="update" onclick="updateHouse()">
-                              <img src="https://cdn.iconscout.com/icon/free/png-64/edit-1912229-1617698.png" alt="update">
-                          </button>
-                         </td>
-                         <td>
-                          <button id="delete" onclick="deleteHouse()">
-                              <img src="https://cdn.iconscout.com/icon/free/png-64/delete-1912233-1617702.png" alt="delete">
-                          </button>
-                         </td>
-                      </tr>
-                      <% } %>
-                  	<% } %>
-                  	<% } else { %>
-                  	<tr>
-                     	<td colspan="9" style="text-align:center;">존재하는 매물 정보가 없습니다.</td>
-                  	</tr>
-                  	<% } %>
+            <tr>
+                <th scope="row">1</th>
+                <td>커먼타운 센트럴 261</td>
+                <td>여성전용</td>
+                <td>1인실</td>
+                <td>8.5㎡</td>
+                <td>100만원</td>
+                <td>40만원</td>
+                <td>2020-12-26</td>
+                <td>
+                    <button id="update" onclick="updateHouse()">
+                        <img src="https://cdn.iconscout.com/icon/free/png-64/edit-1912229-1617698.png" alt="update">
+                    </button>
+                </td>
+                <td>
+                    <button id="delete" onclick="deleteHouse()">
+                        <img src="https://cdn.iconscout.com/icon/free/png-64/delete-1912233-1617702.png" alt="delete">
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>커먼타운 센트럴 261</td>
+                <td>남성전용</td>
+                <td>1인실</td>
+                <td>11.5㎡</td>
+                <td>112만원</td>
+                <td>42만원</td>
+                <td>2020-12-15</td>
+                <td>
+                    <button id="update" onclick="updateHouse()">
+                        <img src="https://cdn.iconscout.com/icon/free/png-64/edit-1912229-1617698.png" alt="update">
+                    </button>
+                </td>
+                <td>
+                    <button id="delete" onclick="deleteHouse()">
+                        <img src="https://cdn.iconscout.com/icon/free/png-64/delete-1912233-1617702.png" alt="delete">
+                    </button>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
     
     <!--  페이지를 이동해도 footer는 계속 상단에 노출되게끔 -->
    <%@include file="/views/common/footer.jsp" %>
-   
-   <script>
-   		
-   
-   </script>
 </body>
 </html>

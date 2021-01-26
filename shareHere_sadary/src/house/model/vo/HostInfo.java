@@ -48,37 +48,36 @@ public class HostInfo {
 	private String shStatus;
 	private Date shDate;
 	private String payNo;
-	private String hstNo;
 	
 	public HostInfo() {}
-	
-	
 
 	
-
-
-	public HostInfo(String shNo, String shTitle, String shType, String shStr, String shArea, String shAddress,
-			Date shDate, String payNo, String hstNo) {
+	
+	public HostInfo(String shTitle, String shType, String shStr, String shArea, String shFloor, String shIntro,
+			String shPers, String shComs, String shSs, String shBank, String shMart, String shParmacy, String shSubway,
+			String shCafe, String shStore) {
 		super();
-		this.shNo = shNo;
 		this.shTitle = shTitle;
 		this.shType = shType;
 		this.shStr = shStr;
 		this.shArea = shArea;
-		this.shAddress = shAddress;
-		this.shDate = shDate;
-		this.payNo = payNo;
-		this.hstNo = hstNo;
+		this.shFloor = shFloor;
+		this.shIntro = shIntro;
+		this.shPers = shPers;
+		this.shComs = shComs;
+		this.shSs = shSs;
+		this.shBank = shBank;
+		this.shMart = shMart;
+		this.shParmacy = shParmacy;
+		this.shSubway = shSubway;
+		this.shCafe = shCafe;
+		this.shStore = shStore;
 	}
-
-
-
-
 
 
 	public HostInfo(String shTitle, String shType, String shStr, String shArea, String shFloor, String shIntro,
 			String shPers, String shComs, String shSs, String shAddress, String shLa, String shLo, String shBank,
-			String shMart, String shParmacy, String shSubway, String shCafe, String shStore, String hstNo) {
+			String shMart, String shParmacy, String shSubway, String shCafe, String shStore) {
 		super();
 		this.shTitle = shTitle;
 		this.shType = shType;
@@ -98,15 +97,18 @@ public class HostInfo {
 		this.shSubway = shSubway;
 		this.shCafe = shCafe;
 		this.shStore = shStore;
-		this.hstNo = hstNo;
 	}
+
+
+
+
 
 
 
 	public HostInfo(String shNo, String shTitle, String shType, String shStr, String shArea, String shFloor,
 			String shIntro, String shPers, String shComs, String shSs, String shAddress, String shLa, String shLo,
 			String shBank, String shMart, String shParmacy, String shSubway, String shCafe, String shStore,
-			String shStatus, Date shDate, String payNo, String hstNo) {
+			String shStatus, Date shDate, String payNo) {
 		super();
 		this.shNo = shNo;
 		this.shTitle = shTitle;
@@ -130,7 +132,6 @@ public class HostInfo {
 		this.shStatus = shStatus;
 		this.shDate = shDate;
 		this.payNo = payNo;
-		this.hstNo = hstNo;
 	}
 
 	public String getShNo() {
@@ -309,14 +310,6 @@ public class HostInfo {
 		this.payNo = payNo;
 	}
 
-	public String getHstNo() {
-		return hstNo;
-	}
-
-	public void setHstNo(String hstNo) {
-		this.hstNo = hstNo;
-	}
-
 	@Override
 	public String toString() {
 		return "HostInfo [shNo=" + shNo + ", shTitle=" + shTitle + ", shType=" + shType + ", shStr=" + shStr
@@ -324,11 +317,8 @@ public class HostInfo {
 				+ ", shComs=" + shComs + ", shSs=" + shSs + ", shAddress=" + shAddress + ", shLa=" + shLa + ", shLo="
 				+ shLo + ", shBank=" + shBank + ", shMart=" + shMart + ", shParmacy=" + shParmacy + ", shSubway="
 				+ shSubway + ", shCafe=" + shCafe + ", shStore=" + shStore + ", shStatus=" + shStatus + ", shDate="
-				+ shDate + ", payNo=" + payNo + ", hstNo=" + hstNo + "]";
+				+ shDate + ", payNo=" + payNo + "]";
 	}
-
-	
-
 	
 	
 

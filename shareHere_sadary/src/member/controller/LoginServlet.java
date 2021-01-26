@@ -39,8 +39,6 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("request.getParameter(\"userId\") : " + request.getParameter("userId"));
 		System.out.println("request.getParameter(\"userPwd\") : " + request.getParameter("userPwd"));
 		
-		
-		
 		// user일경우 로그인 로직
 		if(membertype.charAt(0) == 'u') {
 
@@ -53,11 +51,9 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute("loginUser", loginUser);
 				response.sendRedirect(request.getContextPath());
 			}else {
-				request.setAttribute("msg", "일반회원 로그인에 실패하였습니다.");
+				request.setAttribute("msg", "로그인에 실패하였습니다.");
 				request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
 			}
-			
-			
 			
 			// host 로그인 로직
 		}else if(membertype.charAt(0) == 'h'){
@@ -71,23 +67,12 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute("loginHost", loginHost);
 				response.sendRedirect(request.getContextPath());
 			}else {
-				// 원본
-				request.setAttribute("msg", "호스트 로그인에 실패하였습니다.");
+				request.setAttribute("msg", "로그인에 실패하였습니다.");
 				request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
-				
-				
-//도전   			페이지는 그대로, 틀렷다는 정보만 띄우기
-//				request.setAttribute("msg", "일치하는 정보가 없습니다.");
-//				request.getRequestDispatcher("/views/Login/login_Nnavi.jsp").forward(request, response);
-//				request.getRequestDispatcher("localhost:8702/shereHere/member/login").forward(request, response);
-//				response.sendRedirect(request.getContextPath()+"/views/Login/login_Nnavi.jsp");
 			}
 		}else {
-			request.setAttribute("msg", "일치하는 정보가 없습니다.");
+			request.setAttribute("msg", "로그인에 실패하였습니다.");
 			request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
-			
-			
-//			response.sendRedirect(request.getContextPath()+"/views/Login/login_Nnavi.jsp");
 		}
 		/*
 		String userId = request.getParameter("userId");
