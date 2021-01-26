@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import house.model.vo.HostInfo;
+import house.model.vo.HostPay;
+import house.model.vo.HouseReport;
 
 public class HouseDao {
 	
@@ -66,6 +68,55 @@ public class HouseDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 임대인 결제 insert
+	public int insertHstpay(Connection conn, HostPay hpay) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertHstpay");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, hpay.getShItem());
+			pstmt.setString(2, hpay.getShPrice());
+			pstmt.setString(3, hpay.getHstNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	//하우스 신고
+	public int insertHouseReport(Connection conn, HouseReport r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertHouseReport");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, r.getrReason());
+			pstmt.setString(2, r.getrContent());
+			pstmt.setString(3, r.getShNo());
+			pstmt.setString(4, r.getUsNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			close(pstmt);
 		}
 		

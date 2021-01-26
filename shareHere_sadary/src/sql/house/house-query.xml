@@ -54,5 +54,48 @@
           , 'PY1'
 		)
 	</entry>
+	<!-- 임대인 결제 insert -->
+	<entry key="insertHstpay">
+	INSERT
+		INTO SH_PAY
+		(
+			SHP_NO
+		,	SH_ITEM
+		,	SH_PRICE
+		,	SH_PDATE
+		,	HST_NO		
+		)
+		VALUES
+		(
+			'SHP' || SHP.nextval
+		,	?
+		,	?
+		,	SYSDATE
+		,	?
+		)	
+	</entry>
+	
+	<!-- 하우스 신고 insert -->
+	<entry key="insertHouseReport">
+	INSERT
+		INTO SH_REPORT
+		(
+			SH_REPORTNUM
+		,	SH_REASON
+		,	SH_CONTENT
+		,	SH_REPORT_DATE
+		, 	SH_NO
+		,	US_NO			
+		)
+		VALUES
+		(
+			'SHR' || SHR.nextval
+		,	?
+		,	?
+		,	SYSDATE
+		,	?
+		,	?
+		)
+	</entry>
 
 </properties>

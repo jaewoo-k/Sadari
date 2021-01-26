@@ -52,24 +52,34 @@
 			참고하세요.
 			나중에 포스팅 해볼게요.
 			*/
+			//결제창에서 보여질 이름 (6개월권, 1년권인지 판별해야함)
 			name: '주문명:결제테스트',
-			//결제창에서 보여질 이름
+			//가격 (6개월이면 100원, 1년이면 200원으로 설정되야함)
 			amount: 100,
-			//가격
+			
+			//결제 마지막 결제내역 확인란(이메일, 이름만보임)
+			
+			//임대인의 이메일
 			buyer_email: 'iamport@siot.do',
+			//임대인의 이름
 			buyer_name: '구매자이름',
+			//임대인의 휴대전화
 			buyer_tel: '010-1234-5678',
+			//임대인의주소
 			buyer_addr: '서울특별시 강남구 삼성동',
-			buyer_postcode: '123-456',
-			m_redirect_url: 'https://www.yourdomain.com/payments/complete'
 			/*
 			모바일 결제시,
 			결제가 끝나고 랜딩되는 URL을 지정
 			(카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
 			*/
+			buyer_postcode: '123-456',
+			m_redirect_url: 'https://www.yourdomain.com/payments/complete'
 			}, function (rsp) {
 			console.log(rsp);
 			if (rsp.success) {
+			
+			// 결제 후 ALERT창	
+	
 			var msg = '결제가 완료되었습니다.';
 			msg += '고유ID : ' + rsp.imp_uid;
 			msg += '상점 거래ID : ' + rsp.merchant_uid;

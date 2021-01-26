@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="house.model.vo.*"%>
+<%
+//User loginUser = (User)session.getAttribute("loginUser");
+HostInfo hstInfo = (HostInfo)request.getAttribute("hostInfo");
+//HouseReport r = (HouseReport)request.getAttribute("HouseReport");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,12 +55,6 @@
        }
        /* 두 번째 섹션 */
 
-       /* 신고 아이콘 */
-       #icon1 {
-           width: 50px;
-          
-           position: relative;
-           display: block;
            
        }
        /* 매물 신고 사유 selectoption */
@@ -69,12 +69,22 @@
            resize: none;
        }
        
+       /* 버튼 영역 */
+		.btnArea {
+		text-align:center;
+		padding : 50px;
+	   }
+       
        /* 신고하기 버튼*/
        #report {
           background-color: black;
-          color : white;
-          margin-left: 50%;
+          color : white; 
        }
+       /* 취소하기 버튼 */
+       #cancel {
+       	  background-color: black;
+          color : white; 
+       } 
 </style>
 </head>
 <body>
@@ -116,25 +126,38 @@
 <!-- 2번째 섹션 -->
 <div class="section2">
     <!-- 신고 폼 -->
-  <form id="reportForm" action="" method="post" onsubmit="return joinValidate();">
+  <form id="reportForm" action="<%= request.getContextPath() %>/insert/report" method="post" onsubmit="return joinValidate();">
   		<br><br>
         <h2> 매물 신고 사유</h2>
         <br>
-        <select id="reason">
-            <option>허위/ 과장된 가격 정보를 가진 매물</option>
-            <option>거래가 완료되어 존재하지 않는 매물</option>
-            <option>경매 의심 매물</option>
-            <option>기타 사유로 정보가 부정확한 매물</option>
+        <select id="reason" name="rreason">
+            <option value="허위/과장된 가격 정보를 가진 매물">허위/ 과장된 가격 정보를 가진 매물</option>
+            <option value="거래가 완료되어 존재하지 않는 매물">거래가 완료되어 존재하지 않는 매물</option>
+            <option value="경매 의심매물">경매 의심 매물</option>
+            <option value="기타 사유로 정보가 부정확한 매물">기타 사유로 정보가 부정확한 매물</option>
         </select>
       
     <br><br><br>
     <h2> 신고 내용</h2>
     <br>
-    <textarea  id="reportcontent" placeholder="신고사유에 대한 구체적인 내용을 작성해 주세요."></textarea>
-    <br><br><br><br><br><br><br>
+    <textarea  id="reportcontent" name="rcontent" placeholder="신고사유에 대한 구체적인 내용을 작성해 주세요."></textarea>
+    
+    <textarea id="housenum" name="shNo" ></textarea>
+  
+    
+    <div class="btnArea">
+    <br><br><br><br><br>
     <button id="report" type="submit">신고하기</button>
+    <button id="cancel" type="button" onclick="javascript:history.back();">취소하기</button>
+    
+    </div>
 
 </form>
+</div>
+
+</body>
+<!--  페이지를 이동해도 footer는 계속 하단에 노출되게끔 -->
+	<%@include file="/views/common/footer.jsp"%>
 
 <script>
 <!-- 유효성 검사  -->
@@ -154,30 +177,35 @@ function validate(){
 	}
 	return true;
 }
-
-	// 신고하기 버튼 클릭 이벤트 작성 (클릭 시 메인 페이지로)
-	const report = document.getElementById('report');
-				report.addEventListener('click', function(){
-						location.href="<%= request.getContextPath() %>/views/common/main.jsp";
-				});
 	
 </script>
 
 	<!-- 네비 버튼 클릭 이벤트 -->
 	<script>
 
-	// 1.House 버튼
-	// 2.RoomMate 버튼
-	// 3.About Us 버튼
+	// House 버튼
+	 const houseBtn = document.getElementById("house");
+     houseBtn.addEventListener("click", function(){
+       location.href='<%= request.getContextPath()%>/views/House/search/sh_searchPage.jsp ';
+    });
+     
+	// RoomMate 버튼
+	const roomMateBtn = document.getElementById("rm");
+    roomMateBtn.addEventListener("click", function(){
+       location.href='<%= request.getContextPath()%>/views/Roommate/rm_survey.jsp ';
+    });
+	
+	// About Us 버튼
+	const aboutUsBtn = document.getElementById("au");
+     aboutUsBtn.addEventListener("click", function(){
+       location.href='<%= request.getContextPath()%>/views/common/aboutus.jsp ';
+    });
+     
+    // logout시 현 페이지 그대로 그리고 mypage버튼 있어야함 
 	// 4.logout 버튼
 	// 5.mypage 버튼
 		
 	</script>
-</div>
 
-<!--  페이지를 이동해도 footer는 계속 하단에 노출되게끔 -->
-	<%@include file="/views/common/footer.jsp"%>
-</body>
-<!-- 변수명 DB와 일치시키기, 신고 폼 value값 넣기, 상단 네비 수정 및 버튼 클릭이벤트 기능 넣기, 후에 디자인 상의 후 수정 -->
 
 </html>

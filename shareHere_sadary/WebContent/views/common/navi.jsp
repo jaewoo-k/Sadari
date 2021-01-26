@@ -79,9 +79,11 @@
 				});
 			</script>
 			
-<!-- Host 로그인됐을때 -->
+<!-- Host 로그인됐을때 --> <!-- House등록, House확인 버튼 추가 -->
             <% }else if(loginHost != null){ %>
             <ul class="nav_buttons">
+            	<li id="houserg"style="color: red; float:left;">House등록</li>
+            	<li id="houseco"style="color: red; float:left;">House확인</li>
                 <li><button type="button" id="outBtn">Logout</button></li> 
 <!-- 마이페이지로 갈때, 비밀번호 입력하는 방법 고민해보기 -->
                 <li><a style="text-decoration: none; color: black;" id="user_name" href="<%=request.getContextPath()%>/views/Mypage/mp_update.jsp"><%= loginHost.getHst_name() %>님 환영합니다.</a></li>
@@ -91,6 +93,12 @@
                 <img src="./main_img/bars-solid.svg" style="width: 100%;">
             </a>
             <script>
+            // House등록 클릭 시 결제 페이지로 이동
+    		const housergBtn = document.getElementById("houserg");
+    		housergBtn.addEventListener("click", function(){
+       		location.href='<%= request.getContextPath()%>/views/House/host/hst_pay.jsp ';
+    		});
+            
             const outBtn = document.getElementById('outBtn');	//로그아웃
         	outBtn.addEventListener('click',function(){
         		location.href='<%= request.getContextPath() %>/member/logout';
@@ -125,6 +133,8 @@
      aboutUsBtn.addEventListener("click", function(){
        location.href='<%= request.getContextPath()%>/views/common/aboutus.jsp ';
     });
+     
+  
     
     </script>
 </body>
