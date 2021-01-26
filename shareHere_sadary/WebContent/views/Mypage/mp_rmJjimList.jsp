@@ -87,16 +87,16 @@
 	   
     <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">회원 정보 수정</a>
+          <a class="nav-link" aria-current="page" href="<%= request.getContextPath() %>/views/Mypage/mp_update.jsp">회원 정보 수정</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">예약한 방 정보</a>
+          <a class="nav-link" href="<%= request.getContextPath() %>/views/Mypage/mp_shReservation.jsp">예약한 방 정보</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">룸메이트 찜 목록</a>
+          <a class="nav-link active" href="<%= request.getContextPath() %>/views/Mypage/mp_rmJjimList.jsp">룸메이트 찜 목록</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">결제내역 확인</a>
+            <a class="nav-link" href="<%= request.getContextPath() %>/views/Mypage/mp_payList.jsp">결제내역 확인</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">회원탈퇴</a>

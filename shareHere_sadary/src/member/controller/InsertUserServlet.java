@@ -19,17 +19,12 @@ import member.model.vo.User;
 public class InsertUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public InsertUserServlet() {
          super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    // User 회원가입  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
@@ -42,13 +37,14 @@ public class InsertUserServlet extends HttpServlet {
 		String userPhone = request.getParameter("phone");
 		
 		User u = new User(userId, userPwd, userName, birth, userGender, userEmail, userPhone);
-		System.out.println("u :" + u);
+//		System.out.println("u :" + u);
 		
 		int result = new MemberService().insertMember(u);
-		System.out.println("result : " + result);
+//		System.out.println("result : " + result);
 		
 		if(result > 0) {
 			request.getSession().setAttribute("msg", "회원가입이 완료되었습니다.");
+			request.getSession().setAttribute("loginUser", u);		// 자동로그인
 			response.sendRedirect(request.getContextPath());
 		}else {
 			request.setAttribute("msg", "회원가입에 실패하였습니다.");

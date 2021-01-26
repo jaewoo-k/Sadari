@@ -51,6 +51,7 @@ public class InsertHostServlet extends HttpServlet {
 		
 		if(result > 0) {
 			request.getSession().setAttribute("msg", "회원가입이 완료되었습니다.");
+			request.getSession().setAttribute("loginHost", h);
 			response.sendRedirect(request.getContextPath());
 		}else {
 			request.setAttribute("msg", "회원가입에 실패하였습니다.");

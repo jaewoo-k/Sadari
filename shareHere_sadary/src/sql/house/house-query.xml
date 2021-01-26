@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="insertHouse">
+	<entry key="insertInfo">
 	INSERT 
 		INTO SH_INFO
 		(
@@ -27,6 +27,7 @@
 		  , SH_STATUS
           , SH_DATE
           , PAY_NO
+          , HST_NO
 		)
 		VALUES
 		(
@@ -51,8 +52,111 @@
 		  , ?
 		  , DEFAULT
           , SYSDATE
-          , 'PY1'
+          , 'PY4'
+          , ?
 		)
+	</entry>
+	<entry key="insertPhoto">
+	INSERT 
+		INTO SH_PHOTO
+		(
+			  SH_I
+			, SH_INAME
+			, SH_IPATH
+			, SH_NO
+			, SH_ITYPE
+			, SH_CHNAME
+		
+		)VALUES(
+			'SHIMG' || SHIMG.nextval
+			, ?
+			, ?
+			, 'SH' || SH.CURRVAL
+			, ?
+			, ?
+		)
+	</entry>
+	<entry key="insertRoom">
+	    INSERT
+		INTO SH_ROOM
+        (
+              SH_RNO
+            , SH_RIMG
+            , SH_RTYPE
+            , SH_GENDER
+            , SH_RAREA
+            , SH_DEPOSIT
+            , SH_ADMCOST
+            , SH_MONTHLY
+            , SH_RDATE
+            , SH_CAPACITY
+            , SH_RNAME
+            , SH_RIMGPATH
+            , SH_NO
+            , SH_RCHIMG
+        )
+        VALUES
+        (   'ROOM' || ROOM.nextval
+          , ?
+          , ?
+          , ?
+          , ?
+          , ?
+          , ?
+          , ?
+          , ?
+          , ?
+          , ?
+          , ?
+          , 'SH' || SH.CURRVAL
+          , ?
+        )
+	</entry>
+	<entry key="selectInfo">
+	SELECT 
+              SH_NO
+            , SH_TITLE
+            , SH_TYPE
+            , SH_STR
+            , SH_AREA
+            , SH_ADDRESS
+            , SH_DATE
+            , PAY_NO
+            , HST_NO
+	FROM
+            SH_INFO
+	WHERE
+            SH_STATUS = 'Y'
+    ORDER BY HST_NO ASC
+	</entry>
+	<entry key="selectPay">
+		SELECT 
+              PAY_NO
+            , SH_PERIOD
+            , HST_NO
+		FROM 
+            SH_PAY
+	</entry>
+	<entry key="insertReport">
+		INSERT
+			INTO SH_REPORT
+			(
+								SH_REPORTNUM
+							,	SH_REPORT_REASON	
+							,	SH_CONTENT
+							,	SH_REPORT_DATE
+							,	SH_NO
+							,	HST_NO
+			)
+			VALUES
+			(
+								?
+							,	?
+							,	?
+							,	SYSDATE
+							,	?
+							,	?	
+			)
 	</entry>
 
 </properties>
