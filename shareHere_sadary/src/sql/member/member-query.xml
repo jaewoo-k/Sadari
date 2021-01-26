@@ -189,11 +189,19 @@
 	</entry>
 	<entry key="deleteMember">
 		UPDATE
-				MEMBER
+				USER_DB
 		   SET
-		   		STATUS = 'N'
+		   		US_ACT = 'N'
 		 WHERE	
-		 		USER_ID = ?
+		 		US_ID = ?
+	</entry>
+	<entry key="deleteHMember">
+		UPDATE
+				HST_DB
+		   SET
+		   		HST_ACT = 'N'
+		 WHERE	
+		 		HST_ID = ?
 	</entry>
 </properties>
 

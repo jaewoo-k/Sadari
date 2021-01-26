@@ -13,6 +13,9 @@
 <!-- navi css 경로 -->
 	<link href ="${pageContext.request.contextPath}/views/common/nav_foot.css" rel="stylesheet" type="text/css">
 	
+<!-- cookie	 -->
+<script type="text/javascript" src="./jquery.cookie.js"></script>
+	
 <%-- msg읽어서 알람띄워주고 msg 삭제하기 (로그인하고 제자리 하고싶음) --%>
 <% if(session.getAttribute("msg") != null){ %>
 <script>
@@ -244,6 +247,45 @@
 						location.href='<%= request.getContextPath() %>/views/Login/register_hst.jsp';
 					}
 				});
-			</script>
+				
+				// 간편로그인 링크 연결해주기
+				$(function(){
+					$(".easylogin li").mouseenter(function(){
+						$(this).css({"background":"lightgray", "cursor":"pointer"});
+					}).mouseout(function(){
+						$(this).css({"background":"rgb(248,249,250)"});
+					}).click(function(){
+						location.href='#';
+					});
+				});
+				
+				// 아이디 저장 쿠키
+					// (쿠키에 userId값이 있다면 쿠키에서 불러오기) 
+					$("#userId").val(Cookies.get('remeberId'));
+					if ($("#userId").val() != "") {
+						$("#idremem").attr("checked", true);
+					}
+					// 체크값이 변할때 작동 
+					// 체크 돼있을때 쿠키값을 input값으로 바꾸기
+					// 체 크 안됐을땐 쿠키 지우기
+					$("#idremem").change(function() {
+						if ($("#idremem").is(":checked")) {
+							Cookies.set('remeberId', $("#userId").val(), {
+								expires : 14
+							});
+						} else {
+							Cookies.remove('remeberId');
+						}
+					});
+					
+					// 아이디가 입력될때 체크돼있다면 쿠키값 변경
+					$("#userId").keyup(function() {
+						if ($("#idremem").is(":checked")) {
+							Cookies.set('remeberId', $("#userId").val(), {
+								expires : 14
+							});
+						}
+					});
+				</script>
 </body>
 </html>

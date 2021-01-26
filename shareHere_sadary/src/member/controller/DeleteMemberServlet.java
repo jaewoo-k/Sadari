@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
+import member.model.vo.Host;
 import member.model.vo.User;
 
 /**
@@ -33,21 +34,44 @@ public class DeleteMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// form 태그 안의 값 뽑아와서 하는 방식
-		
-		String userId = ((User)request.getSession().getAttribute("loginUser")).getUserId();
-		int result = new MemberService().deleteMember(userId);
 
-		if(result > 0) {
-			// 회원 탈퇴에 성공한 경우 -> loginUser 지워주고 alert
-			HttpSession session = request.getSession();
-			session.removeAttribute("loginUser");	// 로그인 세션 정보 삭제
-			session.setAttribute("msg", "회원 탈퇴가 완료 되었습니다. 복구 관련 사항은 관리자에게 문의하세요.");
-			// Home으로 이동(서버에 재요청)
-			response.sendRedirect(request.getContextPath());
-		}else {	// 실패 했다면
-			request.setAttribute("msg", "회원 탈퇴에 실패했습니다.");
-			RequestDispatcher view = request.getRequestDispatcher("/views/common/errorPage/jsp");
-			view.forward(request, response);
+		System.out.println("delete서블릿 실행 : " + request.getParameter("user_no"));
+		if(request.getParameter("user_no").charAt(0) == 'u') {
+			
+			String userId = ((User)request.getSession().getAttribute("loginUser")).getUserId();
+			int result = new MemberService().deleteMember(userId);
+			
+			
+			if(result > 0) {
+				// 회원 탈퇴에 성공한 경우 -> loginUser 지워주고 alert
+				HttpSession session = request.getSession();
+				session.removeAttribute("loginUser");	// 로그인 세션 정보 삭제
+				session.setAttribute("msg", "회원 탈퇴가 완료 되었습니다. 복구 관련 사항은 관리자에게 문의하세요.");
+				// Home으로 이동(서버에 재요청)
+				response.sendRedirect(request.getContextPath());
+			}else {	// 실패 했다면
+				request.setAttribute("msg", "회원 탈퇴에 실패했습니다.");
+				RequestDispatcher view = request.getRequestDispatcher("/views/common/errorPage/jsp");
+				view.forward(request, response);
+			}
+		}else {
+			String userId = ((Host)request.getSession().getAttribute("loginHost")).getHst_id();
+			int result = new MemberService().deleteHMember(userId);
+			
+			System.out.println("H문 실행");
+			
+			if(result > 0) {
+				// 회원 탈퇴에 성공한 경우 -> loginUser 지워주고 alert
+				HttpSession session = request.getSession();
+				session.removeAttribute("loginHost");	// 로그인 세션 정보 삭제
+				session.setAttribute("msg", "회원 탈퇴가 완료 되었습니다. 복구 관련 사항은 관리자에게 문의하세요.");
+				// Home으로 이동(서버에 재요청)
+				response.sendRedirect(request.getContextPath());
+			}else {	// 실패 했다면
+				request.setAttribute("msg", "회원 탈퇴에 실패했습니다.");
+				RequestDispatcher view = request.getRequestDispatcher("/views/common/errorPage/jsp");
+				view.forward(request, response);
+			}
 		}
 	}
 

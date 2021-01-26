@@ -39,13 +39,13 @@ public class UpdateMemberServlet extends HttpServlet {
 //				이메일
 //				휴대전화
 				
-//				String userId = ((User)request.getSession().getAttribute("loginUser")).getUserId();
-//				String hostId = ((Host)request.getSession().getAttribute("loginHost")).getHst_id();
-//				System.out.println("userId : " + userId);
-//				System.out.println("hostId : " + userId);
+				String userId = ((User)request.getSession().getAttribute("loginUser")).getUserId();
+				String hostId = ((Host)request.getSession().getAttribute("loginHost")).getHst_id();
+				System.out.println("userId : " + userId);
+				System.out.println("hostId : " + userId);
 				
 				// 유저 (유저아이디 값이 비어있지 않다면)
-					if(request.getParameter("user_no").charAt(0) == 'u') {
+				if(request.getParameter("user_no").charAt(0) == 'u') {
 //						System.out.println("u문 실행");
 					String userName = request.getParameter("us_name");
 					String userPwd = request.getParameter("us_pwd");

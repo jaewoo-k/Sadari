@@ -115,8 +115,12 @@
     <section>
     
         <!-- 메뉴탭 코드 삽입 -->
-        <form name="deleteform" action="#" method="POST">
-        
+        <form id="deleteform" name="deleteform" action="#" method="POST">
+<% if(loginUser != null){ %>
+        <input type="hidden" name="user_no" value="<%= u.getUserNo() %>">
+<% }else{ %>
+        <input type="hidden" name="user_no" value="<%= h.getHst_no() %>">
+<% } %>
         <ul class="nav nav-tabs">
 	        <li class="nav-item">
 	          <a class="nav-link active" aria-current="page" href="<%= request.getContextPath() %>/views/Mypage/mp_update.jsp">회원 정보 수정</a>
@@ -317,11 +321,6 @@
 		const deleteBtn = document.getElementById('deleteBtn');
 		deleteBtn.addEventListener('click', function(){
 			if(confirm("정말로 탈퇴하시겠습니까?")){
-				// GET 방식 요청
-				<%-- location.href="<%= request.getContextPath() %>/member/delete"; --%> 
-				
-				// 기존 form의 action 속성을 변경해서 submit
-				// 기존 form에 정의 된 방식으로 submit 되며, form 태그 안에 있는 모든 정보 submit
 				$("#deleteform").attr("action", "<%=request.getContextPath() %>/member/delete");
 				$("#deleteform").submit();
 			}
