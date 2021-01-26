@@ -41,7 +41,18 @@
 		  AND HST_PWD = ?
 		  AND HST_ACT = 'Y' 
 	</entry>
-	
+	<entry key="loginAMember">
+		SELECT
+			  ADM_NUM
+			, ADM_ID
+			, ADM_PWD
+			, ADM_DEPART
+		 FROM
+		 	  ADM_ADMIN
+		WHERE
+			  ADM_ID = ?
+		  AND ADM_PWD = ?
+	</entry>
 	<entry key="insertMember">
 		INSERT
 		INTO USER_DB
@@ -99,6 +110,90 @@
 		  , ?
 		  , 'Y'
 		)
+	</entry>
+	<entry key="updateMember">
+		UPDATE
+			USER_DB
+		SET
+			US_NAME = ?
+		  , US_PWD = ?
+		  , US_EMAIL = ?
+		  , US_PHONE = ?
+		WHERE
+			US_ID = ?
+	</entry>
+	<entry key="updateHMember">
+		UPDATE
+			HST_DB
+		SET
+			HST_NAME = ?
+		  , HST_PWD = ?
+		  , HST_EMAIL = ?
+		  , HST_PHONE = ?
+		WHERE
+			HST_ID = ?
+	</entry>
+	<entry key="selectMember">
+		SELECT
+			  US_NO
+			, US_ID
+			, US_PWD
+			, US_NAME
+			, US_BIRTH
+			, US_GENDER
+			, US_EMAIL
+			, US_PHONE
+			, US_ACT
+			, US_STOP
+		 FROM
+		 	  USER_DB
+		WHERE
+			  US_ID = ?
+		  AND US_ACT = 'Y' 
+	</entry>
+	<entry key="selectHMember">
+		SELECT
+			  HST_NO
+			, HST_ID
+			, HST_PWD
+			, HST_NAME
+			, HST_BIRTH
+			, HST_GENDER
+			, HST_EMAIL
+			, HST_PHONE
+			, HST_BSNO
+			, HST_BSNAME
+			, HST_ACT
+			, HST_STOP
+		 FROM
+		 	  HST_DB
+		WHERE
+			  HST_ID = ?
+		  AND HST_ACT = 'Y' 
+	</entry>
+	<entry key="idCheck1">
+		 SELECT
+				COUNT(*)
+		   FROM
+		   		USER_DB
+		  WHERE
+		  		US_ID = ?
+	</entry>
+	<entry key="idCheck2">
+		 SELECT
+				COUNT(*)
+		   FROM
+		   		HST_DB
+		  WHERE
+		  		HST_ID = ?
+	</entry>
+	<entry key="deleteMember">
+		UPDATE
+				MEMBER
+		   SET
+		   		STATUS = 'N'
+		 WHERE	
+		 		USER_ID = ?
 	</entry>
 </properties>
 

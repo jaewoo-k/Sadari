@@ -53,7 +53,7 @@ a{
     float : right;
 }
 
-#lgBtn, #reBtn{
+#lgBtn, #reBtn, #outBtn{
     background-color: black;
     color : white;
     border-radius : 7px;
@@ -70,6 +70,11 @@ a{
 }
 
 #reBtn:hover{
+    background-color: white;
+    color : black;
+}
+
+#outBtn:hover{
     background-color: white;
     color : black;
 }
@@ -108,20 +113,7 @@ a{
     	margin-left : 40%;
     	margin-right : 40%;
     }
-    
-    /* 임대인 로그인 시 House등록버튼, House확인버튼 스타일 추가 */
-    
-    #houserg{
-    	cursor:pointer;
-    	
-    }
 
-	#houseco{
-		cursor:pointer;
-	}
-	
-	
-	
 @media screen and (max-width : 900px){
     #lgBtn, #reBtn{
         background-color: black;

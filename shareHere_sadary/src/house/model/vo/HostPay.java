@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package house.model.vo;
 
 import java.sql.Date;
@@ -81,15 +82,7 @@ public class HostPay {
 	public String toString() {
 		return "HostPay [payNo=" + payNo + ", shItem=" + shItem + ", shPrice=" + shPrice + ", shPdate=" + shPdate
 				+ ", hstNo=" + hstNo + "]";
-	}
-
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 	
 }
+

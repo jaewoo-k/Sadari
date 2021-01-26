@@ -1,3 +1,4 @@
+
 package house.model.vo;
 
 import java.sql.Date;
@@ -103,3 +104,4 @@ public class HouseReport {
 	
 	
 }
+

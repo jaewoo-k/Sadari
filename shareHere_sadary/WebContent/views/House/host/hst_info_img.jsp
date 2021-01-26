@@ -8,8 +8,8 @@
 </head>
 <body>
 		<p id="title">이미지 등록</p>
-		<b id="sub" style="font-size: 14px;"> 대표사진은 검색 시 나타나는 사진으로 한 장만 입력
-			가능합니다. <br> 공용공간, 방 사진, 편의시설, 기타의 순서대로 각각 최대 5장씩 가능합니다. <br>
+		<b id="sub" style="font-size: 14px;"> 대표사진은 검색 시 나타나는 사진으로 한 장만 입력 가능합니다. <br> 
+			공용공간, 방 사진, 편의시설, 기타의 순서대로 각각 최대 5장씩 가능합니다. 각각 한 장씩 필수로 넣어주세요!!!<br>
 			공용공간 사진은 가급적 여러각도에서 촬영된 사진 넣어주세요. <br>
 		</b>
 		
@@ -17,7 +17,7 @@
 		<div id="imgSection">
 			<button id="imgBtn">대표사진</button>
 			<div id="fileceo">
-				<input type="file" name="thumbnailImg" id="file">
+				<input type="file" name="thumbnailImg" id="file" required>
 			</div>
 			<div id="thumbnailImgArea">
             	<img id="thumbnail">
@@ -30,37 +30,37 @@
 				<button id="imgBtn">공용 공간</button>
 				<div id="sImgZip">
 					<input type="file" name="shareImg" id="file">
-					<button type="button" id="img_btn" onclick="addShareFile()">
+					<button type="button" id="img_btn" onclick="addShareImgFile()">
 						<img
 							src="https://cdn.iconscout.com/icon/free/png-64/plus-112-453066.png"
 							style="width: 30px;">
 					</button>
-					<button type="button" id="img_btn" onclick="delShareFile()">
+					<button type="button" id="img_btn" onclick="delShareImgFile()">
 						<img
 							src="https://cdn.iconscout.com/icon/free/png-64/minus-129-453071.png"
 							style="width: 30px;">
 					</button>
 				</div>
 				<div id="shareImgArea">
-					<img id="share">
+					<img id="sharePhoto">
 				</div>
 			</span> <span class="rImg">
 				<button id="imgBtn">방 사진</button>
 				<div id="rImgZip">
-					<input type="file" name="roomImg" id="file">
-					<button type="button" id="img_btn" onclick="addRoomFile()">
+					<input type="file" name="roomImg" id="file" required>
+					<button type="button" id="img_btn" onclick="addRoomImgFile()">
 						<img
 							src="https://cdn.iconscout.com/icon/free/png-64/plus-112-453066.png"
 							style="width: 30px;">
 					</button>
-					<button type="button" id="img_btn" onclick="delRoomFile()">
+					<button type="button" id="img_btn" onclick="delRoomImgFile()">
 						<img
 							src="https://cdn.iconscout.com/icon/free/png-64/minus-129-453071.png"
 							style="width: 30px;">
 					</button>
 				</div>
 				<div id="roomImgArea">
-					<img id="room">
+					<img id="roomPhoto">
 				</div>
 			</span>
 		</div>
@@ -70,39 +70,39 @@
 			<span class="rImg">
 				<button id="imgBtn">편의시설</button>
 				<div id="aImgZip">
-					<input type="file" name="amenImg" id="file">
-					<button type="button" id="img_btn" onclick="addAmenFile()">
+					<input type="file" name="amenImg" id="file" required>
+					<button type="button" id="img_btn" onclick="addAmenImgFile()">
 						<img
 							src="https://cdn.iconscout.com/icon/free/png-64/plus-112-453066.png"
 							style="width: 30px;">
 					</button>
-					<button type="button" id="img_btn" onclick="delAmenFile()">
+					<button type="button" id="img_btn" onclick="delAmenImgFile()">
 						<img
 							src="https://cdn.iconscout.com/icon/free/png-64/minus-129-453071.png"
 							style="width: 30px;">
 					</button>
 				</div>
 				<div id="amenImgArea">
-					<img id="amen">
+					<img id="amenPhoto">
 				</div>
 			</span> 
 			<span class="rImg">
 				<button id="imgBtn">기타</button>
 				<div id="eImgZip">
-					<input type="file" name="etcImg" id="file">
-					<button type="button" id="img_btn" onclick="addEtcFile()">
+					<input type="file" name="etcImg" id="file" required>
+					<button type="button" id="img_btn" onclick="addEtcImgFile()">
 						<img
 							src="https://cdn.iconscout.com/icon/free/png-64/plus-112-453066.png"
 							style="width: 30px;">
 					</button>
-					<button type="button" id="img_btn" onclick="delEtcFile()">
+					<button type="button" id="img_btn" onclick="delEtcImgFile()">
 						<img
 							src="https://cdn.iconscout.com/icon/free/png-64/minus-129-453071.png"
 							style="width: 30px;">
 					</button>
 				</div>
 				<div id="etcImgArea">
-					<img id="etc">
+					<img id="etcPhoto">
 				</div>
 			</span>
 		</div>
@@ -114,15 +114,16 @@
 		// 사진 + 버튼 클릭 시 추가, - 버튼 클릭 시 삭제
 	    var sindex = 0;
 	    // 공용공간
-	    function addShareFile(){
+	    function addShareImgFile(){
 	        if(sindex < 4){
 	            $("<br class='brP'><input type='file' name='shareImg"+ sindex +"' class='addedP'>").appendTo("#sImgZip");
-	            $("<img id='share"+ sindex +"' class=addedPI>").appendTo("#shareImgArea");
+	            $("<img id='sharePhoto"+ sindex +"' class=addedPI>").appendTo("#shareImgArea");
 	            sindex++;
 	        }
 	        
 	        $("[type=file]").change(function(){
 	               loadImg(this);
+	               //console.log(this);
 	        });
 	       
 			function loadImg(element) {
@@ -135,7 +136,7 @@
 							var size;
 							switch (element.name) {
 							case "shareImg0":
-								selector = "#share0";
+								selector = "#sharePhoto0";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -144,7 +145,7 @@
 								break;
 	
 							case "shareImg1":
-								selector = "#share1";
+								selector = "#sharePhoto1";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -152,7 +153,7 @@
 								};
 								break;
 							case "shareImg2":
-								selector = "#share2";
+								selector = "#sharePhoto2";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -160,7 +161,7 @@
 								};
 								break;
 							case "shareImg3":
-								selector = "#share3";
+								selector = "#sharePhoto3";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -177,7 +178,7 @@
 					}
 				}
 		}
-		function delShareFile() {
+		function delShareImgFile() {
 			if (sindex > 0) {
 				$("input[class=addedP]:last").remove();
 				$("br[class=brP]:last").remove();
@@ -188,10 +189,10 @@
 
 		// 방 사진
 		var rindex = 0;
-		function addRoomFile() {
+		function addRoomImgFile() {
 			if (rindex < 4) {
 				$("<br class='brR'><input type='file' name='roomImg"+ rindex +"' class='addedR'>").appendTo("#rImgZip");
-				$("<img id='room"+ rindex +"' class=addedRI>").appendTo("#roomImgArea");
+				$("<img id='roomPhoto"+ rindex +"' class=addedRI>").appendTo("#roomImgArea");
 				rindex++;
 			}
 			
@@ -209,7 +210,7 @@
 							var size;
 							switch (element.name) {
 							case "roomImg0":
-								selector = "#room0";
+								selector = "#roomPhoto0";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -218,7 +219,7 @@
 								break;
 	
 							case "roomImg1":
-								selector = "#room1";
+								selector = "#roomPhoto1";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -226,7 +227,7 @@
 								};
 								break;
 							case "roomImg2":
-								selector = "#room2";
+								selector = "#roomPhoto2";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -234,7 +235,7 @@
 								};
 								break;
 							case "roomImg3":
-								selector = "#room3";
+								selector = "#roomPhoto3";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -252,7 +253,7 @@
 				}
 		}
 
-		function delRoomFile() {
+		function delRoomImgFile() {
 			if (rindex > 0) {
 				$("input[class=addedR]:last").remove();
 				$("br[class=brR]:last").remove();
@@ -263,10 +264,10 @@
 
 		// 편의시설
 		var aindex = 0;
-		function addAmenFile() {
+		function addAmenImgFile() {
 			if (aindex < 4) {
 				$("<br class='brA'><input type='file' name='amenImg"+ aindex +"' class='addedA'>").appendTo("#aImgZip");
-				$("<img id='amen"+ aindex +"' class=addedAI>").appendTo("#amenImgArea");
+				$("<img id='amenPhoto"+ aindex +"' class=addedAI>").appendTo("#amenImgArea");
 				aindex++;
 			}
 			
@@ -284,7 +285,7 @@
 							var size;
 							switch (element.name) {
 							case "amenImg0":
-								selector = "#amen0";
+								selector = "#amenPhoto0";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -293,7 +294,7 @@
 								break;
 	
 							case "amenImg1":
-								selector = "#amen1";
+								selector = "#amenPhoto1";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -301,7 +302,7 @@
 								};
 								break;
 							case "amenImg2":
-								selector = "#amen2";
+								selector = "#amenPhoto2";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -309,7 +310,7 @@
 								};
 								break;
 							case "amenImg3":
-								selector = "#amen3";
+								selector = "#amenPhoto3";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -328,7 +329,7 @@
 			
 		}
 
-		function delAmenFile() {
+		function delAmenImgFile() {
 			if (aindex > 0) {
 				$("input[class=addedA]:last").remove();
 				$("br[class=brA]:last").remove();
@@ -339,10 +340,10 @@
 
 		// 기타
 		var eindex = 0;
-		function addEtcFile() {
+		function addEtcImgFile() {
 			if (eindex < 4) {
 				$("<br class='brE'><input type='file' name='etcImg"+ eindex +"' class='addedE'>").appendTo("#eImgZip");
-				$("<img id='etc"+ eindex +"' class=addedEI>").appendTo("#etcImgArea");
+				$("<img id='etcPhoto"+ eindex +"' class=addedEI>").appendTo("#etcImgArea");
 				eindex++;
 			}
 			
@@ -360,7 +361,7 @@
 							var size;
 							switch (element.name) {
 							case "etcImg0":
-								selector = "#etc0";
+								selector = "#etcPhoto0";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -369,7 +370,7 @@
 								break;
 	
 							case "etcImg1":
-								selector = "#etc1";
+								selector = "#etcPhoto1";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -377,7 +378,7 @@
 								};
 								break;
 							case "etcImg2":
-								selector = "#etc2";
+								selector = "#etcPhoto2";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -385,7 +386,7 @@
 								};
 								break;
 							case "etcImg3":
-								selector = "#etc3";
+								selector = "#etcPhoto3";
 								size = {
 									width : "100px",
 									height : "100px",
@@ -403,7 +404,7 @@
 				}
 		}
 
-		function delEtcFile() {
+		function delEtcImgFile() {
 			if (eindex > 0) {
 				$("input[class=addedE]:last").remove();
 				$("br[class=brE]:last").remove();
@@ -416,6 +417,7 @@
 			// input type="file" 태그에 파일이 첨부 될 떄 동작하는 이벤트
 			$("[type=file]").change(function() {
 				loadImg(this);
+				console.log(this);
 			});
 		})
 
@@ -443,7 +445,7 @@
 						};
 						break;
 					case "shareImg":
-						selector = "#share";
+						selector = "#sharePhoto";
 						size = {
 							width : "100px",
 							height : "100px",
@@ -451,7 +453,7 @@
 						};
 						break;
 					case "roomImg":
-						selector = "#room";
+						selector = "#roomPhoto";
 						size = {
 							width : "100px",
 							height : "100px",
@@ -460,7 +462,7 @@
 						break;
 
 					case "amenImg":
-						selector = "#amen";
+						selector = "#amenPhoto";
 						size = {
 							width : "100px",
 							height : "100px",
@@ -468,7 +470,7 @@
 						};
 						break;
 					case "etcImg":
-						selector = "#etc";
+						selector = "#etcPhoto";
 						size = {
 							width : "100px",
 							height : "100px",
